@@ -1,46 +1,98 @@
 /* global window */
 /* eslint no-console: off */
 /* eslint no-param-reassign: off */
+/* eslint no-var: off */
+/* eslint no-cond-assign: off */
+/* eslint no-mixed-operators: off */
 import imgUrl from './assets/images/demo.jpg';
+
+const dotList = [];
+var finishCount = 0;
+var ctx = null;
+var rafId = null;
 
 const img = new window.Image();
 img.src = imgUrl;
-
-const dotList = [];
 
 class Dot {
   constructor(centerX, centerY, radius) {
     this.x = centerX;
     this.y = centerY;
     this.radius = radius;
+    this.frameNum = 0;
+    this.frameCount = Math.ceil(3000 / 16.66);
+    this.sx = 400;
+    this.sy = 400;
   }
 }
 
-function draw(ctx, sx, sy, dw, dh) {
-  ctx.clearRect(0, 0, dw, dh);
+// function draw(ctx, sx, sy) {
+//   ctx.clearRect(0, 0, window.document.body.clientWidth, window.document.body.clientHeight);
 
+//   ctx.fillStyle = '#000';
+
+//   for (const item of dotList) {
+//     ctx.save();
+//     ctx.beginPath();
+//     ctx.arc(sx + item.x, sy + item.y, item.radius, 0, 2 * Math.PI);
+//     ctx.fill();
+//     ctx.restore();
+//   }
+// }
+
+function easeInOutCubic(t, b, c, d) {
+  t /= d / 2;
+  if (t < 1) return c / 2 * t * t * t + b;
+  t -= 2;
+  return c / 2 * (t * t * t + 2) + b;
+}
+
+
+function drawAnimate() {
+  var curX;
+  var curY;
+  rafId = window.requestAnimationFrame(drawAnimate);
+
+  ctx.clearRect(0, 0, window.document.body.clientWidth, window.document.body.clientHeight);
   ctx.fillStyle = '#000';
+
+  finishCount = 0;
 
   for (const item of dotList) {
     ctx.save();
     ctx.beginPath();
-    ctx.arc(sx + item.x, sy + item.y, item.radius, 0, 2 * Math.PI);
+
+    if (item.frameNum < item.frameCount) {
+      curX = easeInOutCubic(item.frameNum, item.sx, item.x - item.sx, item.frameCount);
+      curY = easeInOutCubic(item.frameNum, item.sy, item.y - item.sy, item.frameCount);
+
+      ctx.arc(curX, curY, item.radius, 0, 2 * Math.PI);
+      item.frameNum += 1;
+    } else {
+      ctx.arc(item.x, item.y, item.radius, 0, 2 * Math.PI);
+      finishCount += 1;
+    }
+
     ctx.fill();
     ctx.restore();
+
+    if (finishCount >= dotList.length) {
+      window.cancelAnimationFrame(rafId);
+      return;
+    }
   }
 }
 
 
 function init() {
+  const imgW = img.width;
+  const imgH = img.height;
   const canvas = window.document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
+  ctx = canvas.getContext('2d');
 
   canvas.width = window.document.body.clientWidth;
   canvas.height = window.document.body.clientHeight;
 
-
-  const imgW = img.width;
-  const imgH = img.height;
   const sx = (canvas.width / 2) - (imgW / 2);
   const sy = (canvas.height / 2) - (imgH / 2);
   ctx.drawImage(img, sx, sy);
@@ -56,7 +108,8 @@ function init() {
     }
   }
 
-  draw(ctx, sx, sy, canvas.width, canvas.height);
+  // draw(ctx, sx, sy);
+  drawAnimate();
 }
 
 if (img.complete) {
