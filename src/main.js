@@ -4,6 +4,7 @@
 /* eslint no-var: off */
 /* eslint no-cond-assign: off */
 /* eslint no-mixed-operators: off */
+/* eslint no-continue: off */
 import imgUrl from './assets/images/demo.jpg';
 
 const dotList = [];
@@ -23,6 +24,8 @@ class Dot {
     this.frameCount = Math.ceil(3000 / 16.66);
     this.sx = 400;
     this.sy = 400;
+    this.delay = this.frameCount * Math.random();
+    this.delayCount = 0;
   }
 }
 
@@ -59,6 +62,11 @@ function drawAnimate() {
   finishCount = 0;
 
   for (const item of dotList) {
+    if (item.delayCount < item.delay) {
+      item.delayCount += 1;
+      continue;
+    }
+
     ctx.save();
     ctx.beginPath();
 
