@@ -5,12 +5,16 @@
 /* eslint no-cond-assign: off */
 /* eslint no-mixed-operators: off */
 /* eslint no-continue: off */
+/* eslint no-unused-vars: off */
+
 import imgUrl from './assets/images/demo.jpg';
 
 const dotList = [];
 var finishCount = 0;
 var ctx = null;
 var rafId = null;
+var fontSize = 500;
+var fontFamily = 'Helvetica Neue, Helvetica, Arial, sans-serif';
 
 const img = new window.Image();
 img.src = imgUrl;
@@ -29,6 +33,29 @@ class Dot {
   }
 }
 
+function setFontSize(s) {
+  ctx.font = `${s}px ${fontFamily}`;
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function handleCanvas(canvas) {
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  console.log(imgData);
+
+  for (let x = 0; x < imgData.width; x += 6) {
+    for (let y = 0; y < imgData.height; y += 6) {
+      const i = ((y * imgData.width) + x) * 4;
+      if (imgData.data[i + 3] > 128 && imgData.data[i] < 100) {
+        const dot = new Dot(x, y, 2);
+        dotList.push(dot);
+      }
+    }
+  }
+}
 // function draw(ctx, sx, sy) {
 //   ctx.clearRect(0, 0, window.document.body.clientWidth, window.document.body.clientHeight);
 
@@ -93,28 +120,38 @@ function drawAnimate() {
 
 
 function init() {
-  const imgW = img.width;
-  const imgH = img.height;
+  // const imgW = img.width;
+  // const imgH = img.height;
+  let size = 0;
+  const input = window.document.querySelector('#word');
+
   const canvas = window.document.getElementById('canvas');
   ctx = canvas.getContext('2d');
 
   canvas.width = window.document.body.clientWidth;
   canvas.height = window.document.body.clientHeight;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const sx = (canvas.width / 2) - (imgW / 2);
-  const sy = (canvas.height / 2) - (imgH / 2);
-  ctx.drawImage(img, sx, sy);
-  const imgData = ctx.getImageData(sx, sy, imgW, imgH);
+  const word = input.value ? input.value : 'beta';
+  if (rafId) window.cancelAnimationFrame(rafId);
 
-  for (let x = 0; x < imgData.width; x += 6) {
-    for (let y = 0; y < imgData.height; y += 6) {
-      const i = ((y * imgData.width) + x) * 4;
-      if (imgData.data[i + 3] > 128 && imgData.data[i] < 100) {
-        const dot = new Dot(x, y, 2);
-        dotList.push(dot);
-      }
-    }
-  }
+  size = Math.min(fontSize,
+      (canvas.width / ctx.measureText(word).width) * 0.8 * fontSize,
+      (canvas.height / fontSize) * (isNumber(word) ? 1 : 0.5) * fontSize
+    );
+  setFontSize(size);
+
+  // const sx = (canvas.width / 2) - (imgW / 2);
+  // const sy = (canvas.height / 2) - (imgH / 2);
+  // ctx.drawImage(img, sx, sy);
+  // const imgData = ctx.getImageData(sx, sy, imgW, imgH);
+
+  ctx.textBaseline = 'top';
+  ctx.fillText(word, 10, 0);
+
+  handleCanvas(canvas);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // draw(ctx, sx, sy);
   drawAnimate();
@@ -127,3 +164,5 @@ if (img.complete) {
     init();
   };
 }
+
+window.document.querySelector('#btn').onclick = init;
