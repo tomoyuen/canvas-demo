@@ -18,7 +18,6 @@ var fontFamily = 'Helvetica Neue, Helvetica, Arial, sans-serif';
 const img = new window.Image();
 img.src = imgUrl;
 
-const input = window.document.querySelector('#word');
 const canvas = window.document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 
@@ -125,13 +124,12 @@ function drawAnimate() {
 }
 
 
-function init() {
+function init(word = 'beta') {
   // const imgW = img.width;
   // const imgH = img.height;
   let size = 0;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const word = input.value ? input.value : 'beta';
   if (rafId) window.cancelAnimationFrame(rafId);
 
   size = Math.min(fontSize,
@@ -166,5 +164,5 @@ if (img.complete) {
 
 window.document.querySelector('.input-block').onsubmit = (event) => {
   event.preventDefault();
-  init();
+  init(event.target.querySelector('input').value);
 };
