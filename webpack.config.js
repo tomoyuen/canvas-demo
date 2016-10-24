@@ -8,11 +8,23 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.vue'],
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
+  },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
   },
   module: {
     preLoaders: [
+      {
+        test: /\.vue$/,
+        loader: 'eslint',
+        include: path.resolve(__dirname, './src'),
+        exclude: /node_modules/
+      },
       {
         test: /\.js$/,
         loader: 'eslint',
@@ -22,14 +34,14 @@ module.exports = {
     ],
     loaders: [
       {
+        test: /\.vue$/,
+        loader: 'vue',
+      },
+      {
         test: /\.js$/,
         loader: 'babel',
         include: path.resolve(__dirname, './src'),
         exclude: /node_modules/,
-        query: {
-          presets: ['es2015'],
-          plugins: ['transform-runtime'],
-        }
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -39,6 +51,11 @@ module.exports = {
         }
       }
     ]
+  },
+  vue: {
+    loaders: {
+      js: 'babel!eslint',
+    },
   },
   devServer: {
     historyApiFallback: true,
