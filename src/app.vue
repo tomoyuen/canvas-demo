@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <particle></particle>
+    <!-- <particle></particle> -->
+    <attraction></attraction>
   </div>
 </template>
 
 <script>
-import Particle from './components/particle';
+import Particle from './components/Particle';
+import Attraction from './components/Attraction';
 
 export default {
   name: 'app',
   components: {
     Particle,
+    Attraction,
   },
 };
 </script>
