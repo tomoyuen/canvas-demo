@@ -2,6 +2,9 @@
   <div></div>
 </template>
 <script>
+  /*
+    * 来源：http://codepen.io/natewiley/pen/yakLgb
+   */
   export default {
     const { random, atan2, cos, sin, hypot } = Math;
     const max = 200;
