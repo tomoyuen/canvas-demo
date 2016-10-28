@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <!-- <particle></particle> -->
-    <attraction></attraction>
+    <!-- <attraction></attraction> -->
+    <mouse-balls></mouse-balls>
   </div>
 </template>
 
 <script>
 import Particle from './components/Particle';
 import Attraction from './components/Attraction';
+import MouseBalls from './components/MouseBalls';
 
 export default {
   name: 'app',
   components: {
     Particle,
     Attraction,
+    MouseBalls,
   },
 };
 </script>
