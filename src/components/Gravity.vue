@@ -25,6 +25,8 @@
    */
   /* global window */
   /* eslint no-underscore-dangle: off */
+  /* eslint no-continue: off */
+  /* eslint no-param-reassign: off */
   export default {
     mounted() {
       /**
@@ -144,198 +146,150 @@
             gravities: targets.gravities || [],
           };
           this._speed = new Vector();
+          this.gravity = 0.05;
+          this.isMouseOver = false;
+          this.dragging = false;
+          this.destroyed = false;
+          this._easeRadius = 0;
+          this._dragDistance = null;
+          this._collapsing = false;
+        }
+        hitTest(p) {
+          return this.distanceTo(p) < this.radius;
+        }
+        startDrag(dragStartPoint) {
+          this._dragDistance = Vector.sub(dragStartPoint, this);
+          this.dragging = true;
+        }
+        drag(dragToPoint) {
+          this.x = dragToPoint.x - this._dragDistance.x;
+          this.y = dragToPoint.y - this._dragDistance.y;
+        }
+        endDrag() {
+          this._dragDistance = null;
+          this.dragging = false;
+        }
+        addSpeed(d) {
+          this._speed = this._speed.add(d);
+        }
+        collapse() {
+          this.currentRadius *= 1.75;
+          this._collapsing = true;
+        }
+        render(ctx) {
+          if (this.destroyed) return;
+          for (const item of this._targets.particles) {
+            item.addSpeed(Vector.sub(this, item).normalize().scale(this.gravity));
+          }
+          this._easeRadius = (this._easeRadius + ((this.radius - this.currentRadius) * 0.07)) * 0.95;
+          this.currentRadius += this._easeRadius;
+          if (this.currentRadius < 0) this.currentRadius = 0;
+          if (this._collapsing) {
+            this.radius *= 0.75;
+            if (this.currentRadius < 1) this.destroyed = true;
+            this._draw(ctx);
+            return;
+          }
+          const area = this.radius * this.radius * Math.PI;
+          let absorp;
+          let garea;
+          for (const item of this._targets.gravities) {
+            if (item === this || item.destroyed) continue;
+            if (
+              (this.currentRadius >= item.radius || this.dragging) &&
+              this.distanceTo(item) < (this.currentRadius + item.radius) * 0.85
+            ) {
+              item.destroyed = true;
+              this.gravity += item.gravity;
+
+              absorp = Vector.sub(item, this).scale((item.radius / this.radius) * 0.5);
+              this.addSpeed(absorp);
+
+              garea = item.radius * item.radius * Math.PI;
+              this.currentRadius = Math.sqrt((area + (garea * 3)) / Math.PI);
+              this.radius = Math.sqrt((area + garea) / Math.PI);
+            }
+            item.addSpeed(Vector.sub(this, item).normalize().scale(this.gravity));
+          }
+          if (GravityPoint.interferenceToPoint && !this.dragging) this.add(this._speed);
+          this._speed = new Vector();
+          if (this.currentRadius > GravityPoint.RADIUS_LIMIT) this.collapse();
+          this._draw(ctx);
+        }
+        _draw(ctx) {
+          ctx.save();
+
+          let grd = ctx.createRadialGradient(
+            this.x,
+            this.y,
+            this.radius,
+            this.x,
+            this.y,
+            this.radius * 5
+          );
+          grd.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
+          grd.addColorStop(1, 'rgba(0, 0, 0, 1)');
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius * 5, 0, Math.PI * 2, false);
+          ctx.fillStyle = grd;
+          ctx.fill();
+
+          const r = (Math.random() * this.currentRadius * 0.7) + (this.currentRadius * 0.3);
+          grd = ctx.createRadialGradient(this.x, this.y, r, this.x, this.y, this.currentRadius());
+          grd.addColorStop(0, 'rgba(0, 0, 0, 1)');
+          grd.addColorStop(1, Math.random() < 0.2 ? 'rgba(255, 196, 0, 0.15)' : 'rgba(103, 181, 191, 0.75)');
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.currentRadius, 0, Math.PI * 2, false);
+          ctx.fillStyle = grd;
+          ctx.fill();
+          ctx.restore();
         }
       }
 
-      GravityPoint.prototype = (function(o) {
-        var s = new Vector(0, 0), p;
-        for (p in o) s[p] = o[p];
-        return s;
-      })({
-        gravity:       0.05,
-        isMouseOver:   false,
-        dragging:      false,
-        destroyed:     false,
-        _easeRadius:   0,
-        _dragDistance: null,
-        _collapsing:   false,
-
-        hitTest: function(p) {
-          return this.distanceTo(p) < this.radius;
-        },
-
-        startDrag: function(dragStartPoint) {
-          this._dragDistance = Vector.sub(dragStartPoint, this);
-          this.dragging = true;
-        },
-
-        drag: function(dragToPoint) {
-          this.x = dragToPoint.x - this._dragDistance.x;
-          this.y = dragToPoint.y - this._dragDistance.y;
-        },
-
-        endDrag: function() {
-          this._dragDistance = null;
-          this.dragging = false;
-        },
-
-        addSpeed: function(d) {
-          this._speed = this._speed.add(d);
-        },
-
-        collapse: function(e) {
-          this.currentRadius *= 1.75;
-          this._collapsing = true;
-        },
-
-          render: function(ctx) {
-              if (this.destroyed) return;
-
-              var particles = this._targets.particles,
-                  i, len;
-
-              for (i = 0, len = particles.length; i < len; i++) {
-                  particles[i].addSpeed(Vector.sub(this, particles[i]).normalize().scale(this.gravity));
-              }
-
-              this._easeRadius = (this._easeRadius + (this.radius - this.currentRadius) * 0.07) * 0.95;
-              this.currentRadius += this._easeRadius;
-              if (this.currentRadius < 0) this.currentRadius = 0;
-
-              if (this._collapsing) {
-                  this.radius *= 0.75;
-                  if (this.currentRadius < 1) this.destroyed = true;
-                  this._draw(ctx);
-                  return;
-              }
-
-              var gravities = this._targets.gravities,
-                  g, absorp,
-                  area = this.radius * this.radius * Math.PI, garea;
-
-              for (i = 0, len = gravities.length; i < len; i++) {
-                  g = gravities[i];
-
-                  if (g === this || g.destroyed) continue;
-
-                  if (
-                      (this.currentRadius >= g.radius || this.dragging) &&
-                      this.distanceTo(g) < (this.currentRadius + g.radius) * 0.85
-                  ) {
-                      g.destroyed = true;
-                      this.gravity += g.gravity;
-
-                      absorp = Vector.sub(g, this).scale(g.radius / this.radius * 0.5);
-                      this.addSpeed(absorp);
-
-                      garea = g.radius * g.radius * Math.PI;
-                      this.currentRadius = Math.sqrt((area + garea * 3) / Math.PI);
-                      this.radius = Math.sqrt((area + garea) / Math.PI);
-                  }
-
-                  g.addSpeed(Vector.sub(this, g).normalize().scale(this.gravity));
-              }
-
-              if (GravityPoint.interferenceToPoint && !this.dragging)
-                  this.add(this._speed);
-
-              this._speed = new Vector();
-
-              if (this.currentRadius > GravityPoint.RADIUS_LIMIT) this.collapse();
-
-              this._draw(ctx);
-          },
-
-          _draw: function(ctx) {
-            var grd, r;
-
-            ctx.save();
-
-            grd = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, this.radius * 5);
-            grd.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
-            grd.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius * 5, 0, Math.PI * 2, false);
-            ctx.fillStyle = grd;
-            ctx.fill();
-
-            r = Math.random() * this.currentRadius * 0.7 + this.currentRadius * 0.3;
-            grd = ctx.createRadialGradient(this.x, this.y, r, this.x, this.y, this.currentRadius);
-            grd.addColorStop(0, 'rgba(0, 0, 0, 1)');
-            grd.addColorStop(1, Math.random() < 0.2 ? 'rgba(255, 196, 0, 0.15)' : 'rgba(103, 181, 191, 0.75)');
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.currentRadius, 0, Math.PI * 2, false);
-            ctx.fillStyle = grd;
-            ctx.fill();
-            ctx.restore();
-          }
-      });
+      // GravityPoint.prototype = (function(o) {
+      //   var s = new Vector(0, 0), p;
+      //   for (p in o) s[p] = o[p];
+      //   return s;
+      // })({
+      // });
 
 
       /**
        * Particle
        */
-      function Particle(x, y, radius) {
-          Vector.call(this, x, y);
+      class Particle extends Vector {
+        constructor(x, y, radius) {
+          super(x, y);
           this.radius = radius;
-
           this._latest = new Vector();
-          this._speed  = new Vector();
+          this._speed = new Vector();
+        }
+        addSpeed(d) {
+          this._speed.add(d);
+        }
+        update() {
+          if (this._speed.length() > 12) this._speed.normalize().scale(12);
+
+          this._latest.set(this);
+          this.add(this._speed);
+        }
       }
 
-      Particle.prototype = (function(o) {
-          var s = new Vector(0, 0), p;
-          for (p in o) s[p] = o[p];
-          return s;
-      })({
-          addSpeed: function(d) {
-              this._speed.add(d);
-          },
+      // Particle.prototype = (function(o) {
+      //     var s = new Vector(0, 0), p;
+      //     for (p in o) s[p] = o[p];
+      //     return s;
+      // })({
+      // });
 
-          update: function() {
-              if (this._speed.length() > 12) this._speed.normalize().scale(12);
-
-              this._latest.set(this);
-              this.add(this._speed);
-          }
-
-          // render: function(ctx) {
-          //     if (this._speed.length() > 12) this._speed.normalize().scale(12);
-
-          //     this._latest.set(this);
-          //     this.add(this._speed);
-
-          //     ctx.save();
-          //     ctx.fillStyle = ctx.strokeStyle = '#fff';
-          //     ctx.lineCap = ctx.lineJoin = 'round';
-          //     ctx.lineWidth = this.radius * 2;
-          //     ctx.beginPath();
-          //     ctx.moveTo(this.x, this.y);
-          //     ctx.lineTo(this._latest.x, this._latest.y);
-          //     ctx.stroke();
-          //     ctx.beginPath();
-          //     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-          //     ctx.fill();
-          //     ctx.restore();
-          // }
-      });
-
-
-
-      // Initialize
-
-      (function() {
-
+      (() => {
           // Configs
-
-          var BACKGROUND_COLOR      = 'rgba(11, 51, 56, 1)',
-              PARTICLE_RADIUS       = 1,
-              G_POINT_RADIUS        = 10,
-              G_POINT_RADIUS_LIMITS = 65;
-
+          var BACKGROUND_COLOR = 'rgba(11, 51, 56, 1)';
+          var PARTICLE_RADIUS = 1;
+          var G_POINT_RADIUS = 10;
+          var G_POINT_RADIUS_LIMITS = 65;
 
           // Vars
-
           var canvas, context,
               bufferCvs, bufferCtx,
               screenWidth, screenHeight,
