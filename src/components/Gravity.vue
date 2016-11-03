@@ -27,23 +27,26 @@
   /* eslint no-underscore-dangle: off */
   /* eslint no-continue: off */
   /* eslint no-param-reassign: off */
+  /* eslint no-var: off */
+  /* eslint one-var: off */
+  /* eslint no-bitwise: ["error", { "int32Hint": true }] */
+
+  import dat from 'dat.gui/build/dat.gui';
+
   export default {
     mounted() {
       /**
        * requestAnimationFrame
        */
       window.document.querySelector('body').style.backgroundColor = '#222';
-      window.requestAnimationFrame = () => {
-        return window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          window.oRequestAnimationFrame ||
-          window.msRequestAnimationFrame ||
-          function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-          };
-      };
-
+      window.requestAnimationFrame = () => window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
 
       /**
        * Vector
@@ -283,210 +286,213 @@
       // });
 
       (() => {
-          // Configs
-          var BACKGROUND_COLOR = 'rgba(11, 51, 56, 1)';
-          var PARTICLE_RADIUS = 1;
-          var G_POINT_RADIUS = 10;
-          var G_POINT_RADIUS_LIMITS = 65;
+        // Configs
+        var BACKGROUND_COLOR = 'rgba(11, 51, 56, 1)',
+          PARTICLE_RADIUS = 1,
+          G_POINT_RADIUS = 10;
 
-          // Vars
-          var canvas, context,
-              bufferCvs, bufferCtx,
-              screenWidth, screenHeight,
-              mouse = new Vector(),
-              gravities = [],
-              particles = [],
-              grad,
-              gui, control;
+        // Vars
+        var canvas = {},
+          context,
+          bufferCvs,
+          bufferCtx,
+          screenWidth,
+          screenHeight,
+          mouse = new Vector(),
+          gravities = [],
+          particles = [],
+          grad,
+          gui,
+          control;
 
 
-          // Event Listeners
+        // Event Listeners
+        function resize() {
+          screenWidth = canvas.width = window.innerWidth;
+          screenHeight = canvas.height = window.innerHeight;
 
-          function resize(e) {
-              screenWidth  = canvas.width  = window.innerWidth;
-              screenHeight = canvas.height = window.innerHeight;
-              bufferCvs.width  = screenWidth;
-              bufferCvs.height = screenHeight;
-              context   = canvas.getContext('2d');
-              bufferCtx = bufferCvs.getContext('2d');
+          const cx = canvas.width * 0.5;
+          const cy = canvas.height * 0.5;
 
-              var cx = canvas.width * 0.5,
-                  cy = canvas.height * 0.5;
+          bufferCvs.width = screenWidth;
+          bufferCvs.height = screenHeight;
+          context = canvas.getContext('2d');
+          bufferCtx = bufferCvs.getContext('2d');
 
-              grad = context.createRadialGradient(cx, cy, 0, cx, cy, Math.sqrt(cx * cx + cy * cy));
-              grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-              grad.addColorStop(1, 'rgba(0, 0, 0, 0.35)');
+          grad = context.createRadialGradient(cx, cy, 0, cx, cy, Math.sqrt((cx * cx) + (cy * cy)));
+          grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+          grad.addColorStop(1, 'rgba(0, 0, 0, 0.35)');
+        }
+
+        function mouseMove(e) {
+          var i,
+            g,
+            hit = false;
+
+          mouse.set(e.clientX, e.clientY);
+
+          for (i = gravities.length - 1; i >= 0; i -= 1) {
+            g = gravities[i];
+            if ((!hit && g.hitTest(mouse)) || g.dragging) {
+              g.isMouseOver = hit = true;
+            } else {
+              g.isMouseOver = false;
+            }
           }
 
-          function mouseMove(e) {
-              mouse.set(e.clientX, e.clientY);
+          canvas.style.cursor = hit ? 'pointer' : 'default';
+        }
 
-              var i, g, hit = false;
-              for (i = gravities.length - 1; i >= 0; i--) {
-                  g = gravities[i];
-                  if ((!hit && g.hitTest(mouse)) || g.dragging)
-                      g.isMouseOver = hit = true;
-                  else
-                      g.isMouseOver = false;
-              }
+        function mouseDown(e) {
+          for (let i = gravities.length - 1; i >= 0; i -= 1) {
+            if (gravities[i].isMouseOver) {
+              gravities[i].startDrag(mouse);
+              return;
+            }
+          }
+          gravities.push(new GravityPoint(e.clientX, e.clientY, G_POINT_RADIUS, {
+            particles,
+            gravities,
+          }));
+        }
 
-              canvas.style.cursor = hit ? 'pointer' : 'default';
+        function mouseUp() {
+          for (const item of gravities) {
+            if (item.dragging) {
+              item.endDrag();
+              break;
+            }
+          }
+        }
+
+        function doubleClick() {
+          for (let i = gravities.length - 1; i >= 0; i -= 1) {
+            if (gravities[i].isMouseOver) {
+              gravities[i].collapse();
+              break;
+            }
+          }
+        }
+        // Functions
+        function addParticle(num) {
+          var i,
+            p;
+          for (i = 0; i < num; i += 1) {
+            p = new Particle(
+              Math.floor((Math.random() * screenWidth) - (PARTICLE_RADIUS * 2)) + 1 + PARTICLE_RADIUS,
+              Math.floor(
+                (Math.random() * screenHeight)
+                - (PARTICLE_RADIUS * 2)
+              ) + 1 + PARTICLE_RADIUS,
+              PARTICLE_RADIUS
+            );
+            p.addSpeed(Vector.random());
+            particles.push(p);
+          }
+        }
+
+        function removeParticle(num) {
+          if (particles.length < num) num = particles.length;
+          for (let i = 0; i < num; i += 1) {
+            particles.pop();
+          }
+        }
+
+        // GUI Control
+        control = {
+          particleNum: 50,
+        };
+
+        // Init
+        canvas = window.document.getElementById('c');
+        bufferCvs = window.document.createElement('canvas');
+
+        window.addEventListener('resize', resize, false);
+        resize(null);
+
+        addParticle(control.particleNum);
+
+        canvas.addEventListener('mousemove', mouseMove, false);
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.addEventListener('dblclick', doubleClick, false);
+
+        // GUI
+        gui = new dat.GUI();
+        gui.add(control, 'particleNum', 0, 300).step(1).name('Particle Num').onChange(() => {
+          var n = (control.particleNum | 0) - particles.length;
+          if (n > 0) {
+            addParticle(n);
+          } else if (n < 0) {
+            removeParticle(-n);
+          }
+        });
+        gui.add(GravityPoint, 'interferenceToPoint').name('Interference Between Point');
+        gui.close();
+
+        // Start Update
+        const loop = () => {
+          var i,
+            len,
+            g,
+            p;
+
+          context.save();
+          context.fillStyle = BACKGROUND_COLOR;
+          context.fillRect(0, 0, screenWidth, screenHeight);
+          context.fillStyle = grad;
+          context.fillRect(0, 0, screenWidth, screenHeight);
+          context.restore();
+
+          for (i = 0, len = gravities.length; i < len; i += 1) {
+            g = gravities[i];
+            if (g.dragging) g.drag(mouse);
+            g.render(context);
+            if (g.destroyed) {
+              gravities.splice(i, 1);
+              len -= 1;
+              i -= 1;
+            }
           }
 
-          function mouseDown(e) {
-              for (var i = gravities.length - 1; i >= 0; i--) {
-                  if (gravities[i].isMouseOver) {
-                      gravities[i].startDrag(mouse);
-                      return;
-                  }
-              }
-              gravities.push(new GravityPoint(e.clientX, e.clientY, G_POINT_RADIUS, {
-                  particles: particles,
-                  gravities: gravities
-              }));
+          bufferCtx.save();
+          bufferCtx.globalCompositeOperation = 'destination-out';
+          bufferCtx.globalAlpha = 0.35;
+          bufferCtx.fillRect(0, 0, screenWidth, screenHeight);
+          bufferCtx.restore();
+
+          // パーティクルをバッファに描画
+          // for (i = 0, len = particles.length; i < len; i++) {
+          //     particles[i].render(bufferCtx);
+          // }
+          len = particles.length;
+          bufferCtx.save();
+          bufferCtx.fillStyle = bufferCtx.strokeStyle = '#fff';
+          bufferCtx.lineCap = bufferCtx.lineJoin = 'round';
+          bufferCtx.lineWidth = PARTICLE_RADIUS * 2;
+          bufferCtx.beginPath();
+          for (i = 0; i < len; i++) {
+            p = particles[i];
+            p.update();
+            bufferCtx.moveTo(p.x, p.y);
+            bufferCtx.lineTo(p._latest.x, p._latest.y);
           }
-
-          function mouseUp(e) {
-              for (var i = 0, len = gravities.length; i < len; i++) {
-                  if (gravities[i].dragging) {
-                      gravities[i].endDrag();
-                      break;
-                  }
-              }
+          bufferCtx.stroke();
+          bufferCtx.beginPath();
+          for (i = 0; i < len; i++) {
+            p = particles[i];
+            bufferCtx.moveTo(p.x, p.y);
+            bufferCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
           }
+          bufferCtx.fill();
+          bufferCtx.restore();
 
-          function doubleClick(e) {
-              for (var i = gravities.length - 1; i >= 0; i--) {
-                  if (gravities[i].isMouseOver) {
-                      gravities[i].collapse();
-                      break;
-                  }
-              }
-          }
+          // バッファをキャンバスに描画
+          context.drawImage(bufferCvs, 0, 0);
 
-
-          // Functions
-
-          function addParticle(num) {
-              var i, p;
-              for (i = 0; i < num; i++) {
-                  p = new Particle(
-                      Math.floor(Math.random() * screenWidth - PARTICLE_RADIUS * 2) + 1 + PARTICLE_RADIUS,
-                      Math.floor(Math.random() * screenHeight - PARTICLE_RADIUS * 2) + 1 + PARTICLE_RADIUS,
-                      PARTICLE_RADIUS
-                  );
-                  p.addSpeed(Vector.random());
-                  particles.push(p);
-              }
-          }
-
-          function removeParticle(num) {
-              if (particles.length < num) num = particles.length;
-              for (var i = 0; i < num; i++) {
-                  particles.pop();
-              }
-          }
-
-
-          // GUI Control
-
-          control = {
-              particleNum: 50
-          };
-
-
-          // Init
-
-          canvas  = document.getElementById('c');
-          bufferCvs = document.createElement('canvas');
-
-          window.addEventListener('resize', resize, false);
-          resize(null);
-
-          addParticle(control.particleNum);
-
-          canvas.addEventListener('mousemove', mouseMove, false);
-          canvas.addEventListener('mousedown', mouseDown, false);
-          canvas.addEventListener('mouseup', mouseUp, false);
-          canvas.addEventListener('dblclick', doubleClick, false);
-
-
-          // GUI
-
-          gui = new dat.GUI();
-          gui.add(control, 'particleNum', 0, 300).step(1).name('Particle Num').onChange(function() {
-              var n = (control.particleNum | 0) - particles.length;
-              if (n > 0)
-                  addParticle(n);
-              else if (n < 0)
-                  removeParticle(-n);
-          });
-          gui.add(GravityPoint, 'interferenceToPoint').name('Interference Between Point');
-          gui.close();
-
-
-          // Start Update
-
-          var loop = function() {
-              var i, len, g, p;
-
-              context.save();
-              context.fillStyle = BACKGROUND_COLOR;
-              context.fillRect(0, 0, screenWidth, screenHeight);
-              context.fillStyle = grad;
-              context.fillRect(0, 0, screenWidth, screenHeight);
-              context.restore();
-
-              for (i = 0, len = gravities.length; i < len; i++) {
-                  g = gravities[i];
-                  if (g.dragging) g.drag(mouse);
-                  g.render(context);
-                  if (g.destroyed) {
-                      gravities.splice(i, 1);
-                      len--;
-                      i--;
-                  }
-              }
-
-              bufferCtx.save();
-              bufferCtx.globalCompositeOperation = 'destination-out';
-              bufferCtx.globalAlpha = 0.35;
-              bufferCtx.fillRect(0, 0, screenWidth, screenHeight);
-              bufferCtx.restore();
-
-              // パーティクルをバッファに描画
-              // for (i = 0, len = particles.length; i < len; i++) {
-              //     particles[i].render(bufferCtx);
-              // }
-              len = particles.length;
-              bufferCtx.save();
-              bufferCtx.fillStyle = bufferCtx.strokeStyle = '#fff';
-              bufferCtx.lineCap = bufferCtx.lineJoin = 'round';
-              bufferCtx.lineWidth = PARTICLE_RADIUS * 2;
-              bufferCtx.beginPath();
-              for (i = 0; i < len; i++) {
-                  p = particles[i];
-                  p.update();
-                  bufferCtx.moveTo(p.x, p.y);
-                  bufferCtx.lineTo(p._latest.x, p._latest.y);
-              }
-              bufferCtx.stroke();
-              bufferCtx.beginPath();
-              for (i = 0; i < len; i++) {
-                  p = particles[i];
-                  bufferCtx.moveTo(p.x, p.y);
-                  bufferCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
-              }
-              bufferCtx.fill();
-              bufferCtx.restore();
-
-              // バッファをキャンバスに描画
-              context.drawImage(bufferCvs, 0, 0);
-
-              requestAnimationFrame(loop);
-          };
-          loop();
-
+          window.requestAnimationFrame(loop);
+        };
+        loop();
       })();
     },
   };
