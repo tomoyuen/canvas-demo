@@ -3,7 +3,8 @@
     <!-- <particle></particle> -->
     <!-- <attraction></attraction> -->
     <!-- <mouse-balls></mouse-balls> -->
-    <gravity></gravity>
+    <!-- <gravity></gravity> -->
+    <waves></waves>
   </div>
 </template>
 
@@ -11,7 +12,8 @@
 import Particle from './components/Particle';
 import Attraction from './components/Attraction';
 import MouseBalls from './components/MouseBalls';
-import Gravity from './components/Gravity';
+// import Gravity from './components/Gravity';
+import Waves from './components/Waves';
 
 export default {
   name: 'app',
@@ -19,7 +21,8 @@ export default {
     Particle,
     Attraction,
     MouseBalls,
-    Gravity,
+    // Gravity,
+    Waves,
   },
 };
 </script>

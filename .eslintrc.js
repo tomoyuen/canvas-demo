@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
+  globals: {
+    'window': false,
+    'document': false,
+  },
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'
@@ -13,5 +17,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'linebreak-style': 0,
     'no-plusplus': 0,
+    'no-var': 0,
+    'one-var': 0,
   }
 }

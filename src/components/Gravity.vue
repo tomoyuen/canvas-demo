@@ -1,6 +1,8 @@
 <template>
-  <canvas id="c"></canvas>
-  <div class="info">Click to add gravity point.</div>
+  <div>
+    <canvas id="c"></canvas>
+    <div class="info">Click to add gravity point.</div>
+  </div>
 </template>
 
 <style scoped>
