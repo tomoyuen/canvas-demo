@@ -87,7 +87,7 @@
         particles = [];
 
         const PI2 = Math.PI * 2;
-        const material = new THREE.PointsMaterial({
+        const material = new THREE.Material({
           color: 0xe1e1e1,
           program(context) {
             context.beginPath();
@@ -107,7 +107,23 @@
           }
         }
 
-        renderer = new THREE.CanvasRenderer();
+        function webglAvailable() {
+          try {
+            const canvas = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext && (
+              canvas.getContext('webgl') ||
+              canvas.getContext('experimental-webgl'))
+            );
+          } catch (e) {
+            return false;
+          }
+        }
+
+        if (webglAvailable()) {
+          renderer = new THREE.WebGLRenderer();
+        } else {
+          renderer = new THREE.CanvasRenderer();
+        }
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
