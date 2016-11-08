@@ -21,7 +21,9 @@
   }
 </style>
 <script>
-  import * as THREE from 'three';
+  /* global THREE */
+  // import * as THREE from 'three';
+  import 'three/examples/js/renderers/CanvasRenderer.js';
 
   export default {
     mounted() {
@@ -87,7 +89,7 @@
         particles = [];
 
         const PI2 = Math.PI * 2;
-        const material = new THREE.Material({
+        const material = new THREE.SpriteCanvasMaterial({
           color: 0xe1e1e1,
           program(context) {
             context.beginPath();
