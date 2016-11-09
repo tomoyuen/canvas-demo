@@ -4,7 +4,8 @@
     <!-- <attraction></attraction> -->
     <!-- <mouse-balls></mouse-balls> -->
     <!-- <gravity></gravity> -->
-    <waves></waves>
+    <!-- <waves></waves> -->
+    <shape></shape>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Attraction from './components/Attraction';
 import MouseBalls from './components/MouseBalls';
 // import Gravity from './components/Gravity';
 import Waves from './components/Waves';
+import Shape from './components/Shape';
 
 export default {
   name: 'app',
@@ -23,6 +25,7 @@ export default {
     MouseBalls,
     // Gravity,
     Waves,
+    Shape,
   },
 };
 </script>
