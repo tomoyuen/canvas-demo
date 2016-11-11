@@ -5,7 +5,8 @@
     <!-- <mouse-balls></mouse-balls> -->
     <!-- <gravity></gravity> -->
     <!-- <waves></waves> -->
-    <shape></shape>
+    <!-- <shape></shape> -->
+    <geometry></geometry>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import MouseBalls from './components/MouseBalls';
 // import Gravity from './components/Gravity';
 import Waves from './components/Waves';
 import Shape from './components/Shape';
+import Geometry from './components/Geometry';
 
 export default {
   name: 'app',
@@ -26,6 +28,7 @@ export default {
     // Gravity,
     Waves,
     Shape,
+    Geometry,
   },
 };
 </script>

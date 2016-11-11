@@ -3,6 +3,7 @@ module.exports = {
   globals: {
     'window': false,
     'document': false,
+    'THREE': false,
   },
   parser: 'babel-eslint',
   parserOptions: {
