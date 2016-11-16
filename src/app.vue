@@ -8,7 +8,8 @@
     <!-- <shape></shape> -->
     <!-- <geometry></geometry> -->
     <!-- <birds></birds> -->
-    <cube></cube>
+    <!-- <cube></cube> -->
+    <hierarchy></hierarchy>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ import Shape from './components/Shape';
 // import Geometry from './components/Geometry';
 import Birds from './components/Birds';
 import Cube from './components/Cube';
+import Hierarchy from './components/Hierarchy';
 
 export default {
   name: 'app',
@@ -35,6 +37,7 @@ export default {
     // Geometry,
     Birds,
     Cube,
+    Hierarchy,
   },
 };
 </script>
