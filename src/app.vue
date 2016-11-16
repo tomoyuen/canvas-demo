@@ -7,7 +7,8 @@
     <!-- <waves></waves> -->
     <!-- <shape></shape> -->
     <!-- <geometry></geometry> -->
-    <birds></birds>
+    <!-- <birds></birds> -->
+    <cube></cube>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import Waves from './components/Waves';
 import Shape from './components/Shape';
 // import Geometry from './components/Geometry';
 import Birds from './components/Birds';
+import Cube from './components/Cube';
 
 export default {
   name: 'app',
@@ -32,6 +34,7 @@ export default {
     Shape,
     // Geometry,
     Birds,
+    Cube,
   },
 };
 </script>
