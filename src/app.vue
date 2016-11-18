@@ -9,7 +9,8 @@
     <!-- <geometry></geometry> -->
     <!-- <birds></birds> -->
     <!-- <cube></cube> -->
-    <hierarchy></hierarchy>
+    <!-- <hierarchy></hierarchy> -->
+    <interactive-cubes></interactive-cubes>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import Shape from './components/Shape';
 import Birds from './components/Birds';
 import Cube from './components/Cube';
 import Hierarchy from './components/Hierarchy';
+import InteractiveCubes from './components/InteractiveCubes';
 
 export default {
   name: 'app',
@@ -38,6 +40,7 @@ export default {
     Birds,
     Cube,
     Hierarchy,
+    InteractiveCubes,
   },
 };
 </script>
