@@ -10,7 +10,8 @@
     <!-- <birds></birds> -->
     <!-- <cube></cube> -->
     <!-- <hierarchy></hierarchy> -->
-    <interactive-cubes></interactive-cubes>
+    <!-- <interactive-cubes></interactive-cubes> -->
+    <cubes-tween></cubes-tween>
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import Birds from './components/Birds';
 import Cube from './components/Cube';
 import Hierarchy from './components/Hierarchy';
 import InteractiveCubes from './components/InteractiveCubes';
+import CubesTween from './components/CubesTween';
 
 export default {
   name: 'app',
@@ -41,6 +43,7 @@ export default {
     Cube,
     Hierarchy,
     InteractiveCubes,
+    CubesTween,
   },
 };
 </script>
