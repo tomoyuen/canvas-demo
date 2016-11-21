@@ -11,7 +11,8 @@
     <!-- <cube></cube> -->
     <!-- <hierarchy></hierarchy> -->
     <!-- <interactive-cubes></interactive-cubes> -->
-    <cubes-tween></cubes-tween>
+    <!-- <cubes-tween></cubes-tween> -->
+    <circle-particles></circle-particles>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import Cube from './components/Cube';
 import Hierarchy from './components/Hierarchy';
 import InteractiveCubes from './components/InteractiveCubes';
 import CubesTween from './components/CubesTween';
+import CircleParticles from './components/CircleParticles';
 
 export default {
   name: 'app',
@@ -44,6 +46,7 @@ export default {
     Hierarchy,
     InteractiveCubes,
     CubesTween,
+    CircleParticles,
   },
 };
 </script>
