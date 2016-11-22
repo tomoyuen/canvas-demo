@@ -12,7 +12,8 @@
     <!-- <hierarchy></hierarchy> -->
     <!-- <interactive-cubes></interactive-cubes> -->
     <!-- <cubes-tween></cubes-tween> -->
-    <circle-particles></circle-particles>
+    <!-- <circle-particles></circle-particles> -->
+    <voxel-painter></voxel-painter>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import Hierarchy from './components/Hierarchy';
 import InteractiveCubes from './components/InteractiveCubes';
 import CubesTween from './components/CubesTween';
 import CircleParticles from './components/CircleParticles';
+import VoxelPainter from './components/VoxelPainter';
 
 export default {
   name: 'app',
@@ -47,6 +49,7 @@ export default {
     InteractiveCubes,
     CubesTween,
     CircleParticles,
+    VoxelPainter,
   },
 };
 </script>
