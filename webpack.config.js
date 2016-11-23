@@ -29,7 +29,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint',
         include: path.resolve(__dirname, './src'),
-        exclude: [/node_modules/, path.resolve(__dirname, './src/objects/')]
+        exclude: [/node_modules/, path.resolve(__dirname, './src/objects/'), path.resolve(__dirname, './src/geometries/')]
       }
     ],
     loaders: [

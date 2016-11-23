@@ -14,7 +14,8 @@
     <!-- <cubes-tween></cubes-tween> -->
     <!-- <circle-particles></circle-particles> -->
     <!-- <voxel-painter></voxel-painter> -->
-    <lines></lines>
+    <!-- <lines></lines> -->
+    <colorful-lines></colorful-lines>
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import CubesTween from './components/CubesTween';
 import CircleParticles from './components/CircleParticles';
 import VoxelPainter from './components/VoxelPainter';
 import Lines from './components/Lines';
+import ColorfulLines from './components/ColorfulLines';
 
 export default {
   name: 'app',
@@ -53,6 +55,7 @@ export default {
     CircleParticles,
     VoxelPainter,
     Lines,
+    ColorfulLines,
   },
 };
 </script>
