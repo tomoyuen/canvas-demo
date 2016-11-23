@@ -13,7 +13,8 @@
     <!-- <interactive-cubes></interactive-cubes> -->
     <!-- <cubes-tween></cubes-tween> -->
     <!-- <circle-particles></circle-particles> -->
-    <voxel-painter></voxel-painter>
+    <!-- <voxel-painter></voxel-painter> -->
+    <lines></lines>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import InteractiveCubes from './components/InteractiveCubes';
 import CubesTween from './components/CubesTween';
 import CircleParticles from './components/CircleParticles';
 import VoxelPainter from './components/VoxelPainter';
+import Lines from './components/Lines';
 
 export default {
   name: 'app',
@@ -50,6 +52,7 @@ export default {
     CubesTween,
     CircleParticles,
     VoxelPainter,
+    Lines,
   },
 };
 </script>
