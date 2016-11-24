@@ -16,7 +16,8 @@
     <!-- <voxel-painter></voxel-painter> -->
     <!-- <lines></lines> -->
     <!-- <colorful-lines></colorful-lines> -->
-    <colorful-lines-2></colorful-lines-2>
+    <!-- <colorful-lines-2></colorful-lines-2> -->
+    <dashed-lines></dashed-lines>
   </div>
 </template>
 
@@ -38,6 +39,7 @@ import VoxelPainter from './components/VoxelPainter';
 import Lines from './components/Lines';
 import ColorfulLines from './components/ColorfulLines';
 import ColorfulLines2 from './components/ColorfulLines2.vue';
+import DashedLines from './components/DashedLines';
 
 export default {
   name: 'app',
@@ -59,6 +61,7 @@ export default {
     Lines,
     ColorfulLines,
     ColorfulLines2,
+    DashedLines,
   },
 };
 </script>
