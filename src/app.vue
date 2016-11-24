@@ -15,7 +15,8 @@
     <!-- <circle-particles></circle-particles> -->
     <!-- <voxel-painter></voxel-painter> -->
     <!-- <lines></lines> -->
-    <colorful-lines></colorful-lines>
+    <!-- <colorful-lines></colorful-lines> -->
+    <colorful-lines-2></colorful-lines-2>
   </div>
 </template>
 
@@ -36,6 +37,7 @@ import CircleParticles from './components/CircleParticles';
 import VoxelPainter from './components/VoxelPainter';
 import Lines from './components/Lines';
 import ColorfulLines from './components/ColorfulLines';
+import ColorfulLines2 from './components/ColorfulLines2.vue';
 
 export default {
   name: 'app',
@@ -56,6 +58,7 @@ export default {
     VoxelPainter,
     Lines,
     ColorfulLines,
+    ColorfulLines2,
   },
 };
 </script>
