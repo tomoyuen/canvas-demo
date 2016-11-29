@@ -22,5 +22,6 @@ module.exports = {
     'one-var': 0,
     'no-continue': 0,
     'func-names': 0,
+    'no-mixed-operators': 0,
   }
 }

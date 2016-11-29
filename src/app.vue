@@ -19,7 +19,8 @@
     <!-- <colorful-lines-2></colorful-lines-2> -->
     <!-- <dashed-lines></dashed-lines> -->
     <!-- <sphere-lines></sphere-lines> -->
-    <materials></materials>
+    <!-- <materials></materials> -->
+    <tic-tac-toe></tic-tac-toe>
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import ColorfulLines2 from './components/ColorfulLines2.vue';
 import DashedLines from './components/DashedLines';
 import SphereLines from './components/SphereLines';
 import Materials from './components/Materials';
+import ticTacToe from './components/ticTacToe';
 
 export default {
   name: 'app',
@@ -68,6 +70,7 @@ export default {
     DashedLines,
     SphereLines,
     Materials,
+    ticTacToe,
   },
 };
 </script>
