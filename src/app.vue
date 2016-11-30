@@ -20,7 +20,8 @@
     <!-- <dashed-lines></dashed-lines> -->
     <!-- <sphere-lines></sphere-lines> -->
     <!-- <materials></materials> -->
-    <tic-tac-toe></tic-tac-toe>
+    <!-- <tic-tac-toe></tic-tac-toe> -->
+    <tic-tac-toe-2></tic-tac-toe-2>
   </div>
 </template>
 
@@ -46,6 +47,7 @@ import DashedLines from './components/DashedLines';
 import SphereLines from './components/SphereLines';
 import Materials from './components/Materials';
 import ticTacToe from './components/ticTacToe';
+import ticTacToe2 from './components/ticTacToe2';
 
 export default {
   name: 'app',
@@ -71,6 +73,7 @@ export default {
     SphereLines,
     Materials,
     ticTacToe,
+    ticTacToe2,
   },
 };
 </script>
