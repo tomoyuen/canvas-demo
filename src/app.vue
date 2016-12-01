@@ -21,7 +21,8 @@
     <!-- <sphere-lines></sphere-lines> -->
     <!-- <materials></materials> -->
     <!-- <tic-tac-toe></tic-tac-toe> -->
-    <tic-tac-toe-2></tic-tac-toe-2>
+    <!-- <tic-tac-toe-2></tic-tac-toe-2> -->
+    <brick></brick>
   </div>
 </template>
 
@@ -48,6 +49,7 @@ import SphereLines from './components/SphereLines';
 import Materials from './components/Materials';
 import ticTacToe from './components/ticTacToe';
 import ticTacToe2 from './components/ticTacToe2';
+import Brick from './components/brick';
 
 export default {
   name: 'app',
@@ -74,6 +76,7 @@ export default {
     Materials,
     ticTacToe,
     ticTacToe2,
+    Brick,
   },
 };
 </script>
