@@ -22,7 +22,8 @@
     <!-- <materials></materials> -->
     <!-- <tic-tac-toe></tic-tac-toe> -->
     <!-- <tic-tac-toe-2></tic-tac-toe-2> -->
-    <brick></brick>
+    <!-- <brick></brick> -->
+    <picture-frame></picture-frame>
   </div>
 </template>
 
@@ -50,6 +51,7 @@ import Materials from './components/Materials';
 import ticTacToe from './components/ticTacToe';
 import ticTacToe2 from './components/ticTacToe2';
 import Brick from './components/brick';
+import PictureFrame from './components/PictureFrame';
 
 export default {
   name: 'app',
@@ -77,6 +79,7 @@ export default {
     ticTacToe,
     ticTacToe2,
     Brick,
+    PictureFrame,
   },
 };
 </script>
