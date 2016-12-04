@@ -23,7 +23,8 @@
     <!-- <tic-tac-toe></tic-tac-toe> -->
     <!-- <tic-tac-toe-2></tic-tac-toe-2> -->
     <!-- <brick></brick> -->
-    <picture-frame></picture-frame>
+    <!-- <picture-frame></picture-frame> -->
+    <loading></loading>
   </div>
 </template>
 
@@ -52,6 +53,7 @@ import ticTacToe from './components/ticTacToe';
 import ticTacToe2 from './components/ticTacToe2';
 import Brick from './components/brick';
 import PictureFrame from './components/PictureFrame';
+import Loading from './components/Loading';
 
 export default {
   name: 'app',
@@ -80,6 +82,7 @@ export default {
     ticTacToe2,
     Brick,
     PictureFrame,
+    Loading,
   },
 };
 </script>
