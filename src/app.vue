@@ -24,7 +24,8 @@
     <!-- <tic-tac-toe-2></tic-tac-toe-2> -->
     <!-- <brick></brick> -->
     <!-- <picture-frame></picture-frame> -->
-    <loading></loading>
+    <!-- <loading></loading> -->
+    <panorama></panorama>
   </div>
 </template>
 
@@ -52,8 +53,9 @@ import Materials from './components/Materials';
 import ticTacToe from './components/ticTacToe';
 import ticTacToe2 from './components/ticTacToe2';
 import Brick from './components/brick';
-import PictureFrame from './components/PictureFrame';
+// import PictureFrame from './components/PictureFrame';
 import Loading from './components/Loading';
+import Panorama from './components/Panorama';
 
 export default {
   name: 'app',
@@ -81,8 +83,9 @@ export default {
     ticTacToe,
     ticTacToe2,
     Brick,
-    PictureFrame,
+    // PictureFrame,
     Loading,
+    Panorama,
   },
 };
 </script>
