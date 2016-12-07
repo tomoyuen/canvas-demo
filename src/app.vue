@@ -25,7 +25,8 @@
     <!-- <brick></brick> -->
     <!-- <picture-frame></picture-frame> -->
     <!-- <loading></loading> -->
-    <panorama></panorama>
+    <!-- <panorama></panorama> -->
+    <particle-demo></particle-demo>
   </div>
 </template>
 
@@ -56,6 +57,7 @@ import Brick from './components/brick';
 // import PictureFrame from './components/PictureFrame';
 import Loading from './components/Loading';
 import Panorama from './components/Panorama';
+import ParticleDemo from './components/ParticleDemo';
 
 export default {
   name: 'app',
@@ -86,6 +88,7 @@ export default {
     // PictureFrame,
     Loading,
     Panorama,
+    ParticleDemo,
   },
 };
 </script>

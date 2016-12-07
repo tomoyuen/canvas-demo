@@ -3,6 +3,7 @@
 </template>
 <script>
   /* eslint global-require: off */
+  /* eslint import/newline-after-import: off */
   import * as THREE from 'three';
 
   var width = window.innerWidth,
