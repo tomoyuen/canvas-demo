@@ -26,7 +26,8 @@
     <!-- <picture-frame></picture-frame> -->
     <!-- <loading></loading> -->
     <!-- <panorama></panorama> -->
-    <particle-demo></particle-demo>
+    <!-- <particle-demo></particle-demo> -->
+    <tree-farm></tree-farm>
   </div>
 </template>
 
@@ -58,6 +59,7 @@ import Brick from './components/brick';
 import Loading from './components/Loading';
 import Panorama from './components/Panorama';
 import ParticleDemo from './components/ParticleDemo';
+import TreeFarm from './components/TreeFarm';
 
 export default {
   name: 'app',
@@ -89,6 +91,7 @@ export default {
     Loading,
     Panorama,
     ParticleDemo,
+    TreeFarm,
   },
 };
 </script>
