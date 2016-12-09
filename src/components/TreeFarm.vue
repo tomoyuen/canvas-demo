@@ -11,8 +11,6 @@
     orbit,
     light;
 
-  var count = 0;
-
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -228,23 +226,24 @@
     plane.geometry.verticesNeedUpdate = true;
     plane.geometry.normalsNeedUpdate = true;
     plane.geometry.computeFaceNormals();
-  }
 
-  function render() {
+    let count = 0;
     const updateParticles = pointsParticles();
-    window.requestAnimationFrame(render);
-    count += 0.02;
-    orbit.update();
-    if (updateParticles) {
-      updateParticles(count);
+    function render() {
+      window.requestAnimationFrame(render);
+      count += 0.02;
+      orbit.update();
+      if (updateParticles) {
+        updateParticles(count);
+      }
+      renderer.render(scene, camera);
     }
-    renderer.render(scene, camera);
+    render();
   }
 
   export default {
     mounted() {
       init();
-      render();
     },
   };
 </script>

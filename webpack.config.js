@@ -67,6 +67,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       THREE: 'three',
     }),
+    new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ]
 }
