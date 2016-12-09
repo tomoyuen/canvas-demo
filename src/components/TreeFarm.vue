@@ -11,6 +11,13 @@
     orbit,
     light;
 
+  const treeMaterial = new THREE.MeshPhongMaterial({
+    color: 0x2c9e4b,
+    shininess: 20,
+    side: THREE.FrontSide,
+    shading: THREE.SmoothShading,
+  });
+
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -40,13 +47,6 @@
   }
 
   function Cone(size = 10, translate) {
-    const treeMaterial = new THREE.MeshPhongMaterial({
-      color: 0x2c9e4b,
-      shininess: 20,
-      side: THREE.FrontSide,
-      shading: THREE.SmoothShading,
-    });
-
     this.geometry = new THREE.CylinderGeometry(size / 2, size, size, 6);
     if (translate) {
       this.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, size, 0));
@@ -65,7 +65,7 @@
     let cone;
 
     for (let i = 0; i < size; i++) {
-      cone = new Cone((size - 1) + 1, i);
+      cone = new Cone((size - i) + 1, i);
       cone.position.y = 0;
       if (lastCone) {
         const box = new THREE.Box3().setFromObject(lastCone);
@@ -101,7 +101,7 @@
 
     return sprite;
   }
-
+  // snow flowers
   function pointsParticles() {
     const pointGeometry = new THREE.Geometry();
 
@@ -161,7 +161,7 @@
     orbit = new THREE.OrbitControls(camera, renderer.domElement);
     orbit.enableZoom = true;
     orbit.enablePan = true;
-    orbit.enableRotate = true;
+    orbit.autoRotate = true;
     orbit.autoRotateSpeed = 0.3;
     orbit.minPolarAngle = 0;
     orbit.maxPolarAngle = Math.PI * 0.45;
@@ -197,6 +197,7 @@
       color: 0xdddddd,
       shininess: 1000,
       bumpMap: noiseMap(1024, 255),
+      bumpScale: 0.025,
       emissive: 0xebf7fd,
       emissiveIntensity: 0.2,
       side: THREE.DoubleSide,
