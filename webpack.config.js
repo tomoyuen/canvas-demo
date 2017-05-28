@@ -1,18 +1,19 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path'),
+  webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build.js',
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
     alias: {
-      vue: 'vue/dist/vue.js'
-    }
+      vue: 'vue/dist/vue.js',
+      components: 'src/components/',
+    },
   },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
@@ -23,14 +24,14 @@ module.exports = {
         test: /\.vue$/,
         loader: 'eslint',
         include: path.resolve(__dirname, './src'),
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
         loader: 'eslint',
         include: path.resolve(__dirname, './src'),
         exclude: [/node_modules/, path.resolve(__dirname, './src/objects/'), path.resolve(__dirname, './src/geometries/')]
-      }
+      },
     ],
     loaders: [
       {
@@ -47,10 +48,10 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file',
         query: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
+          name: '[name].[ext]?[hash]',
+        },
+      },
+    ],
   },
   vue: {
     loaders: {
@@ -69,16 +70,16 @@ module.exports = {
     }),
     new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-  ]
-}
+  ],
+};
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = '#source-map';
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
-  ])
+  ]);
 }

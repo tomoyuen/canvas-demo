@@ -27,7 +27,8 @@
     <!-- <loading></loading> -->
     <!-- <panorama></panorama> -->
     <!-- <particle-demo></particle-demo> -->
-    <tree-farm></tree-farm>
+    <!--<tree-farm></tree-farm>-->
+    <demo></demo>
   </div>
 </template>
 
@@ -60,6 +61,7 @@ import Loading from './components/Loading';
 import Panorama from './components/Panorama';
 import ParticleDemo from './components/ParticleDemo';
 import TreeFarm from './components/TreeFarm';
+import Demo from './components/demo';
 
 export default {
   name: 'app',
@@ -92,12 +94,14 @@ export default {
     Panorama,
     ParticleDemo,
     TreeFarm,
+    Demo,
   },
 };
 </script>
 <style scoped>
   #app {
     /*height: 900px;*/
-    background-color: #009e68;
+    /*background-color: #009e68;*/
+    background: #fff;
   }
 </style>
