@@ -2,9 +2,11 @@
 
 <script>
 import * as THREE from 'three';
+import particleAsset from '../assets/images/particle.png';
+
 // 设置场景大小
-var width = 400,
-  height = 300;
+var width = 500,
+  height = 500;
 // 设置一些相机参数
 var viewAngle = 45,
   aspect = width / height,
@@ -44,6 +46,44 @@ function init() {
   // 将点光源加入场景
   scene.add(pointLight);
 
+  // 创建例子geometry
+  const particleCount = 1800,
+    particles = new THREE.Geometry();
+
+  // 创建粒子基本材质
+  const loader = new THREE.TextureLoader();
+  const particleMap = loader.load(particleAsset);
+  const pMaterial = new THREE.PointsMaterial({
+    color: 0xFFFFFF,
+    size: 20,
+    map: particleMap,
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+  });
+
+  // 依次创建单个粒子
+  for (let p = 0; p < particleCount; p++) {
+    // 粒子范围在-250到250之间
+    const pX = Math.random() * 500 - 250,
+      pY = Math.random() * 500 - 250,
+      pZ = Math.random() * 500 - 250,
+      particle = new THREE.Vector3(pX, pY, pZ);
+
+    // 为每个粒子创建一个水平运动速度
+    particle.velocity = new THREE.Vector3(0, -Math.random(), 0);
+
+    // 将粒子加入粒子geometry
+    particles.vertices.push(particle);
+  }
+
+  // 创建粒子系统
+  const particleSystem = new THREE.Points(particles, pMaterial);
+  // 允许粒子系统对粒子排序，以达到我们想要的效果
+  particleSystem.sortParticles = true;
+
+  // 将粒子系统加入场景
+  scene.add(particleSystem);
+
   // 将相机加入场景
   scene.add(camera);
   // 相机的初始位置为原点
@@ -56,7 +96,31 @@ function init() {
   container.appendChild(renderer.domElement);
 
   // 画
-  renderer.render(scene, camera);
+  // 帧循环
+  function update() {
+    // 增加一点旋转量
+    particleSystem.rotation.y += 0.01;
+    let pCount = particleCount;
+    while (pCount--) {
+      // 获取单个粒子
+      const particle = particles.vertices[pCount];
+      // 检查是否需要重置
+      if (particle.y < -250) {
+        particle.y = 250;
+        particle.velocity.y = 0;
+      }
+      // 用随机数更新水平速度分量，并根据速度更新位置
+      particle.velocity.y -= Math.random() * 0.1;
+      particle.add(particle.velocity);
+    }
+    // 告诉粒子系统我们改变了粒子位置
+    particleSystem.geometry.verticesNeedUpdate = true;
+    // 绘制粒子系统
+    renderer.render(scene, camera);
+    // 设置下一次刷新帧时对update的调用
+    window.requestAnimationFrame(update);
+  }
+  update();
 }
 export default {
   data() {
