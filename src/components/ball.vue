@@ -1,0 +1,87 @@
+<template>
+  <div class="frame">
+    <div class="center">
+      <div class="ball-big">
+        <div class="plane plane-1"></div>
+        <div class="plane plane-2"></div>
+        <div class="plane plane-3"></div>
+        <div class="plane plane-4"></div>
+        <div class="plane plane-5"></div>
+        <div class="plane plane-6"></div>
+      </div>
+    </div>
+  </div>
+</template>
+<style>
+  $numberOfPlanes: 6;
+
+  .frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    margin-top: -200px;
+    margin-left: -200px;
+    border-radius: 2px;
+    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
+    overflow: hidden;
+    background: #D33526;
+    color: #fff;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    perspective: 1500px;
+  }
+
+  .ball-big {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    animation: ball 7s ease-in-out infinite;
+    transform-style: preserve-3d;
+
+    .plane {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: 0;
+      left: 0;
+      background: #fff;
+      border-radius: 50%;
+      opacity: .3;
+    }
+
+    @for $i from 1 to $numberOfPlanes {
+      .plane-$i {
+        transform: rotateX(calc((180 / $numberOfPlanes) * ($i - 1) * 1deg));
+      }
+    }
+
+  }
+
+  @keyframes ball {
+    0% {
+      transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    }
+    25% {
+      transform: rotateY(45deg) rotateX(180deg) rotateZ(20deg);
+    }
+    50% {
+      transform: rotateY(225deg) rotateX(0deg) rotateZ(90deg);
+    }
+    75% {
+      transform: rotateY(0deg) rotateX(45deg) rotateZ(120deg);
+    }
+    100% {
+      transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    }
+  }
+</style>

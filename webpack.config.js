@@ -30,7 +30,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint',
         include: path.resolve(__dirname, './src'),
-        exclude: [/node_modules/, path.resolve(__dirname, './src/objects/'), path.resolve(__dirname, './src/geometries/')]
+        exclude: [/node_modules/, path.resolve(__dirname, './src/objects/'), path.resolve(__dirname, './src/geometries/')],
       },
     ],
     loaders: [
@@ -57,6 +57,7 @@ module.exports = {
     loaders: {
       js: 'babel!eslint',
     },
+    postcss: [require('precss')(), require('postcss-cssnext')()],
   },
   devServer: {
     historyApiFallback: true,

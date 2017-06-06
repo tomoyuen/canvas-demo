@@ -28,7 +28,8 @@
     <!-- <panorama></panorama> -->
     <!-- <particle-demo></particle-demo> -->
     <!--<tree-farm></tree-farm>-->
-    <demo></demo>
+    <!-- <demo></demo> -->
+    <ball></ball>
   </div>
 </template>
 
@@ -62,6 +63,7 @@ import Panorama from './components/Panorama';
 import ParticleDemo from './components/ParticleDemo';
 import TreeFarm from './components/TreeFarm';
 import Demo from './components/demo';
+import Ball from './components/ball';
 
 export default {
   name: 'app',
@@ -95,6 +97,7 @@ export default {
     ParticleDemo,
     TreeFarm,
     Demo,
+    Ball,
   },
 };
 </script>
