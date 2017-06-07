@@ -12,7 +12,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
   $numberOfPlanes: 6;
 
   .frame {

@@ -23,5 +23,10 @@ module.exports = {
     'no-continue': 0,
     'func-names': 0,
     'no-mixed-operators': 0,
+    'no-floating-decimal': 0,
+    'array-callback-return': 0,
+    'consistent-return': 0,
+    'arrow-parens': 0,
+    'no-shadow': 0,
   }
 }

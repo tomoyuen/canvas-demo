@@ -29,7 +29,8 @@
     <!-- <particle-demo></particle-demo> -->
     <!--<tree-farm></tree-farm>-->
     <!-- <demo></demo> -->
-    <ball></ball>
+    <!--<ball></ball>-->
+    <connection></connection>
   </div>
 </template>
 
@@ -64,6 +65,7 @@ import ParticleDemo from './components/ParticleDemo';
 import TreeFarm from './components/TreeFarm';
 import Demo from './components/demo';
 import Ball from './components/ball';
+import Connection from './components/Connection';
 
 export default {
   name: 'app',
@@ -98,6 +100,7 @@ export default {
     TreeFarm,
     Demo,
     Ball,
+    Connection,
   },
 };
 </script>
