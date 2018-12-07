@@ -1,15 +1,23 @@
 <template>
   <div>
-    <h1>Hello App!</h1>
-    <p>
-      <router-link to="/particle">go particle</router-link>
-      <router-link to="/attraction">go attraction</router-link>
-    </p>
+    <h1>Webgl Demos</h1>
+    <ul>
+      <li v-for="item in demos" :key="item.name">
+        <router-link :to="{name: item.name}">{{item.name}}</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
+import routes from './routes';
+
 export default {
-  name: 'app',
+  data() {
+    const demos = routes.filter(item => item.path !== '/');
+    return {
+      demos,
+    };
+  },
 };
 </script>
