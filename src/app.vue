@@ -1,106 +1,53 @@
 <template>
   <div id="app">
-    <!-- <particle></particle> -->
-    <!-- <attraction></attraction> -->
-    <!-- <mouse-balls></mouse-balls> -->
-    <!-- <gravity></gravity> -->
-    <!-- <waves></waves> -->
-    <!-- <shape></shape> -->
-    <!-- <geometry></geometry> -->
-    <!-- <birds></birds> -->
-    <!-- <cube></cube> -->
-    <!-- <hierarchy></hierarchy> -->
-    <!-- <interactive-cubes></interactive-cubes> -->
-    <!-- <cubes-tween></cubes-tween> -->
-    <!-- <circle-particles></circle-particles> -->
-    <!-- <voxel-painter></voxel-painter> -->
-    <!-- <lines></lines> -->
-    <!-- <colorful-lines></colorful-lines> -->
-    <!-- <colorful-lines-2></colorful-lines-2> -->
-    <!-- <dashed-lines></dashed-lines> -->
-    <!-- <sphere-lines></sphere-lines> -->
-    <!-- <materials></materials> -->
-    <!-- <tic-tac-toe></tic-tac-toe> -->
-    <!-- <tic-tac-toe-2></tic-tac-toe-2> -->
-    <!-- <brick></brick> -->
-    <!-- <picture-frame></picture-frame> -->
-    <!-- <loading></loading> -->
-    <!-- <panorama></panorama> -->
-    <!-- <particle-demo></particle-demo> -->
-    <!--<tree-farm></tree-farm>-->
-    <!-- <demo></demo> -->
-    <!--<ball></ball>-->
-    <connection></connection>
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import Particle from './components/Particle';
-import Attraction from './components/Attraction';
-import MouseBalls from './components/MouseBalls';
 // import Gravity from './components/Gravity';
-import Waves from './components/Waves';
-import Shape from './components/Shape';
 // import Geometry from './components/Geometry';
-import Birds from './components/Birds';
-import Cube from './components/Cube';
-import Hierarchy from './components/Hierarchy';
-import InteractiveCubes from './components/InteractiveCubes';
-import CubesTween from './components/CubesTween';
-import CircleParticles from './components/CircleParticles';
-import VoxelPainter from './components/VoxelPainter';
-import Lines from './components/Lines';
-import ColorfulLines from './components/ColorfulLines';
-import ColorfulLines2 from './components/ColorfulLines2.vue';
-import DashedLines from './components/DashedLines';
-import SphereLines from './components/SphereLines';
-import Materials from './components/Materials';
-import ticTacToe from './components/ticTacToe';
-import ticTacToe2 from './components/ticTacToe2';
-import Brick from './components/brick';
 // import PictureFrame from './components/PictureFrame';
-import Loading from './components/Loading';
-import Panorama from './components/Panorama';
-import ParticleDemo from './components/ParticleDemo';
-import TreeFarm from './components/TreeFarm';
-import Demo from './components/demo';
-import Ball from './components/ball';
-import Connection from './components/Connection';
+// import Connection from './components/Connection';
+
+const components = {
+  Particle: require.ensure('./components/Particle'),
+  Attraction: require.ensure('./components/Attraction'),
+  MouseBalls: require.ensure('./components/MouseBalls'),
+  Waves: require.ensure('./components/Waves'),
+  Shape: require.ensure('./components/Shape'),
+  Birds: require.ensure('./components/Birds'),
+  Cube: require.ensure('./components/Cube'),
+  Hierarchy: require.ensure('./components/Hierarchy'),
+  InteractiveCubes: require.ensure('./components/InteractiveCubes'),
+  CubesTween: require.ensure('./components/CubesTween'),
+  CircleParticles: require.ensure('./components/CircleParticles'),
+  VoxelPainter: require.ensure('./components/VoxelPainter'),
+  Lines: require.ensure('./components/Lines'),
+  ColorfulLines: require.ensure('./components/ColorfulLines'),
+  ColorfulLines2: require.ensure('./components/ColorfulLines2'),
+  DashedLines: require.ensure('./components/DashedLines'),
+  SphereLines: require.ensure('./components/SphereLines'),
+  Materials: require.ensure('./components/Materials'),
+  ticTacToe: require.ensure('./components/ticTacToe'),
+  ticTacToe2: require.ensure('./components/ticTacToe2'),
+  Brick: require.ensure('./components/brick'),
+  Loading: require.ensure('./components/Loading'),
+  Panorama: require.ensure('./components/Panorama'),
+  ParticleDemo: require.ensure('./components/ParticleDemo'),
+  TreeFarm: require.ensure('./components/TreeFarm'),
+  Demo: require.ensure('./components/demo'),
+  Ball: require.ensure('./components/ball'),
+};
 
 export default {
   name: 'app',
-  components: {
-    Particle,
-    Attraction,
-    MouseBalls,
-    // Gravity,
-    Waves,
-    Shape,
-    // Geometry,
-    Birds,
-    Cube,
-    Hierarchy,
-    InteractiveCubes,
-    CubesTween,
-    CircleParticles,
-    VoxelPainter,
-    Lines,
-    ColorfulLines,
-    ColorfulLines2,
-    DashedLines,
-    SphereLines,
-    Materials,
-    ticTacToe,
-    ticTacToe2,
-    Brick,
-    // PictureFrame,
-    Loading,
-    Panorama,
-    ParticleDemo,
-    TreeFarm,
-    Demo,
-    Ball,
-    Connection,
+  data() {
+    return {
+      currentComponent: components.Particle,
+    };
   },
 };
 </script>
