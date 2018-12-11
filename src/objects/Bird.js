@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 var Bird = function () {
 
 	var scope = this;
