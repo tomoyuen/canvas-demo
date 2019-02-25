@@ -1,9 +1,3 @@
-<template>
-
-</template>
-<style scoped>
-
-</style>
 <script>
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';

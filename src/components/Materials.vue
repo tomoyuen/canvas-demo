@@ -1,9 +1,3 @@
-<template>
-
-</template>
-<style scoped>
-
-</style>
 <script>
   /* eslint no-param-reassign: off */
   /* eslint object-shorthand: off */

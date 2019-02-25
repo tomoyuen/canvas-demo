@@ -1,5 +1,3 @@
-<template>
-</template>
 <style>
   .ball {
     pointer-events: none;
