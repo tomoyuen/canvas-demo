@@ -1,6 +1,3 @@
-<template>
-
-</template>
 <style scoped>
   a {
     color: #0078ff;

@@ -1,6 +1,5 @@
-<template></template>
-
 <script>
+/* eslint no-console: off */
 import * as THREE from 'three';
 import particleAsset from '../assets/images/particle.png';
 
