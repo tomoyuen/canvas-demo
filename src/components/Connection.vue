@@ -1,5 +1,7 @@
 <template>
-  <canvas id="canvas"></canvas>
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
 <!--
   ALGORITHM:
   structure:

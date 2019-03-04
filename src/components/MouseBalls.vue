@@ -1,3 +1,7 @@
+<template>
+  <div></div>
+</template>
+
 <style>
   .ball {
     pointer-events: none;
@@ -22,9 +26,13 @@
    */
   /* global window */
   export default {
+    data() {
+      return {
+        interval: null,
+      };
+    },
     mounted() {
       const mousePos = {};
-      const body = window.document.querySelector('body');
 
       function getRandomInt(min, max) {
         return Math.round(Math.random() * ((max - min) + 1)) + min;
@@ -40,9 +48,9 @@
         mousePos.y = -1;
       });
 
-      body.style.backgroundColor = '#222';
+      this.$el.style.backgroundColor = '#222';
 
-      setInterval(() => {
+      this.interval = setInterval(() => {
         if (mousePos.x > 0 && mousePos.y > 0) {
           const range = 15;
           const color = `background: rgb(${getRandomInt(0, 255)}, ${getRandomInt(0, 255)}, ${getRandomInt(0, 255)});`;
@@ -55,11 +63,15 @@
           const ball = window.document.createElement('div');
           ball.style = style;
           ball.classList.add('ball');
-          body.appendChild(ball).addEventListener('animationend', () => {
+          this.$el.appendChild(ball).addEventListener('animationend', () => {
             ball.remove();
           }, { once: true });
         }
       }, 1);
     },
+    destroyed() {
+      this.$el.style.backgroundColor = 'none';
+      clearInterval(this.interval);
+    }
   };
 </script>

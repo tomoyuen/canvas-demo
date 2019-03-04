@@ -1,5 +1,7 @@
 <template>
-  <div id="waves"></div>
+  <div>
+    <div id="waves"></div>
+  </div>
 </template>
 <style scoped>
   #waves {
@@ -23,7 +25,6 @@
 <script>
   /* global THREE */
   // import * as THREE from 'three';
-  import 'three/examples/js/renderers/CanvasRenderer.js';
 
   export default {
     mounted() {
@@ -89,7 +90,7 @@
         particles = [];
 
         const PI2 = Math.PI * 2;
-        const material = new THREE.SpriteCanvasMaterial({
+        const material = new THREE.SpriteMaterial({
           color: 0xe1e1e1,
           program(context) {
             context.beginPath();
@@ -102,7 +103,7 @@
 
         for (let ix = 0; ix < AMOUNTX; ix++) {
           for (let iy = 0; iy < AMOUNTY; iy++) {
-            particle = particles[i++] = new THREE.Particle(material);
+            particle = particles[i++] = new THREE.Sprite(material);
             particle.position.x = (ix * SEPARATION) - ((AMOUNTX * SEPARATION) / 2);
             particle.position.z = (iy * SEPARATION) - ((AMOUNTY * SEPARATION) / 2);
             scene.add(particle);
@@ -133,8 +134,6 @@
         document.addEventListener('touchstart', onDocumentTouchStart, false);
         document.addEventListener('touchmove', onDocumentTouchMove, false);
 
-        //
-
         window.addEventListener('resize', onWindowResize, false);
       }
 
@@ -158,7 +157,6 @@
         count += 0.1;
       }
 
-      //
       function animate() {
         window.requestAnimationFrame(animate);
         render();

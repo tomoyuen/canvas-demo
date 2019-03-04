@@ -15,9 +15,7 @@
   /* eslint no-param-reassign: off */
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
   import TWEEN from 'tween.js';
 
   var container,

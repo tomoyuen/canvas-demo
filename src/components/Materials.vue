@@ -3,8 +3,7 @@
   /* eslint object-shorthand: off */
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
 
   import texture1 from '../textures/envmap.png';
   import texture2 from '../textures/land_ocean_ice_cloud_2048.jpg';

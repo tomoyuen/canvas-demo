@@ -16,12 +16,9 @@
 <script>
   /* eslint import/imports-first: off */
   import * as THREE from 'three';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
   import Bird from '../objects/Bird';
-
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-
   var screenWidth = window.innerWidth,
     screenHeight = window.innerHeight,
     screenWidthHalf = screenWidth / 2,

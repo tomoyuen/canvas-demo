@@ -2,7 +2,6 @@
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
   import * as THREE from 'three';
-  import 'three/examples/js/renderers/CanvasRenderer';
   import 'three/examples/js/controls/OrbitControls';
 
   var scene,

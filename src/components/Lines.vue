@@ -16,7 +16,6 @@
   /* eslint no-param-reassign: off */
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
 
   var mouseX = 0,
     mouseY = 0,

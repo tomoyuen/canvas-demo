@@ -16,9 +16,8 @@
   /* eslint no-param-reassign: off */
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-  import Detector from 'three/examples/js/Detector';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import WebGL from 'three/examples/js/WebGL';
+  import Stats from 'stats.js';
   import hilbert3D from '../geometries/hilbert3D';
 
   var mouseX = 0,
@@ -32,7 +31,7 @@
 
   var stats;
 
-  if (!Detector.webgl) Detector.addGetWebGLMessage();
+  if (!WebGL.isWebGLAvailable) WebGL.getWebGLErrorMessage();
 
   function onWindowResize() {
     windowHalfX = window.innerWidth / 2;
