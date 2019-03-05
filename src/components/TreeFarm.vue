@@ -1,7 +1,10 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
-  import * as THREE from 'three';
   import 'three/examples/js/controls/OrbitControls';
 
   var scene,
@@ -137,7 +140,7 @@
     };
   }
 
-  function init() {
+  function init(container) {
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xf4f4f6, 20, 200);
 
@@ -155,7 +158,7 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     window.addEventListener('resize', onWindowResize, false);
-    document.getElementById('app').appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     orbit = new THREE.OrbitControls(camera, renderer.domElement);
     orbit.enableZoom = true;
@@ -243,7 +246,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
     },
   };
 </script>
