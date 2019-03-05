@@ -26,6 +26,8 @@
   /* global THREE */
   // import * as THREE from 'three';
 
+  window.THREE = THREE;
+
   export default {
     mounted() {
       const SEPARATION = 100,
@@ -79,54 +81,32 @@
       }
 
       function init() {
-        container = document.createElement('div');
-        document.body.appendChild(container);
-
         camera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 1000;
 
         scene = new THREE.Scene();
 
+        window.scene = scene;
+
         particles = [];
 
-        const PI2 = Math.PI * 2;
-        const material = new THREE.SpriteMaterial({
-          color: 0xe1e1e1,
-          program(context) {
-            context.beginPath();
-            context.arc(0, 0, 0.6, 0, PI2, true);
-            context.fill();
-          },
-        });
+        const material = new THREE.SpriteMaterial({ color: 0xe1e1e1 });
+        const sprite = new THREE.Sprite(material);
+        sprite.scale.set(0.6, 0.6);
 
         let i = 0;
 
         for (let ix = 0; ix < AMOUNTX; ix++) {
           for (let iy = 0; iy < AMOUNTY; iy++) {
-            particle = particles[i++] = new THREE.Sprite(material);
+            particle = particles[i++] = sprite.clone();
             particle.position.x = (ix * SEPARATION) - ((AMOUNTX * SEPARATION) / 2);
             particle.position.z = (iy * SEPARATION) - ((AMOUNTY * SEPARATION) / 2);
             scene.add(particle);
           }
         }
 
-        function webglAvailable() {
-          try {
-            const canvas = document.createElement('canvas');
-            return !!(window.WebGLRenderingContext && (
-              canvas.getContext('webgl') ||
-              canvas.getContext('experimental-webgl'))
-            );
-          } catch (e) {
-            return false;
-          }
-        }
-
-        if (webglAvailable()) {
-          renderer = new THREE.WebGLRenderer();
-        } else {
-          renderer = new THREE.CanvasRenderer();
-        }
+        container = document.querySelector('#waves');
+        renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
