@@ -1,3 +1,6 @@
+<template>
+  <div></div>
+</template>
 <style scoped>
   a {
     color: #0078ff;
@@ -5,7 +8,6 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
 
   var WIDTH = window.innerWidth,
@@ -59,6 +61,24 @@
     render();
   }
 
+  function makeSprite() {
+    const PI2 = Math.PI * 2;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const spriteSize = 8;
+    canvas.width = canvas.height = spriteSize * 2;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
+    ctx.fill();
+
+    const sprite = new THREE.Texture(canvas);
+    sprite.needsUpdate = true;
+
+    return sprite;
+  }
+
   function init() {
     var container,
       particle;
@@ -71,20 +91,15 @@
 
     scene = new THREE.Scene();
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(WIDTH, HEIGHT);
     container.appendChild(renderer.domElement);
 
     // particles
-    const PI2 = Math.PI * 2;
-    const material = new THREE.SpriteCanvasMaterial({
-      color: 0xffffff,
-      program(context) {
-        context.beginPath();
-        context.arc(0, 0, 0.5, 0, PI2, true);
-        context.fill();
-      },
+    const material = new THREE.SpriteMaterial({
+      color: 0xfffff,
+      map: makeSprite(),
     });
 
     for (let i = 0; i < 1000; i++) {
