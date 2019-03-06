@@ -15,10 +15,10 @@
 </style>
 <script>
   /* eslint import/imports-first: off */
-  import * as THREE from 'three';
   import Stats from 'stats.js';
   import Bird from '../objects/Bird';
   import 'three/examples/js/renderers/Projector';
+
   var screenWidth = window.innerWidth,
     screenHeight = window.innerHeight,
     screenWidthHalf = screenWidth / 2,
@@ -274,7 +274,7 @@
       scene.add(bird);
     }
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xffffff);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(screenWidth, screenHeight);

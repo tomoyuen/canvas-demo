@@ -13,7 +13,6 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
 
   var container,
@@ -27,7 +26,6 @@
   var cubeGeometry = new THREE.BoxGeometry(50, 50, 50);
   var cubeMaterial = new THREE.MeshLambertMaterial({
     color: 0x00ff80,
-    overdraw: 0.5,
   });
   var size = 500,
     step = 50;
@@ -146,7 +144,7 @@
     directionLight1.position.normalize();
     scene.add(directionLight1);
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xf0f0f0);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);

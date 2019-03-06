@@ -13,7 +13,6 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
   import TWEEN from 'tween.js';
@@ -101,7 +100,7 @@
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xf0f0f0);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);

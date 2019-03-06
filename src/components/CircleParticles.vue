@@ -13,7 +13,6 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
 
@@ -66,9 +65,8 @@
     scene = new THREE.Scene();
 
     for (let i = 0; i < 100; i++) {
-      const particle = new THREE.Sprite(new THREE.SpriteCanvasMaterial({
+      const particle = new THREE.Sprite(new THREE.SpriteMaterial({
         color: (Math.random() * 0x808080) + 0x808080,
-        program: programStroke,
       }));
 
       particle.position.x = (Math.random() * 800) - 400;
@@ -81,7 +79,7 @@
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xf0f0f0);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);

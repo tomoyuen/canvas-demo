@@ -1,3 +1,7 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
@@ -64,7 +68,7 @@
     scene = new THREE.Scene();
 
     geometry = new THREE.BoxGeometry(100, 100, 100);
-    const material = new THREE.MeshNormalMaterial({ overdraw: 0.5 });
+    const material = new THREE.MeshNormalMaterial();
 
     group = new THREE.Group();
 
@@ -83,7 +87,7 @@
 
     scene.add(group);
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xffffff);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
