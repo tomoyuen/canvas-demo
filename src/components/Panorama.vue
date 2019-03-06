@@ -4,8 +4,6 @@
 <script>
   /* eslint global-require: off */
   /* eslint import/newline-after-import: off */
-  import * as THREE from 'three';
-
   var width = window.innerWidth,
     height = window.innerHeight;
 
@@ -23,7 +21,7 @@
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   const origin = new THREE.Vector3();
 
-  function init() {
+  function init(container) {
     const loader = new THREE.CubeTextureLoader();
     const cubemap = loader.load(urls);
     cubemap.format = THREE.RGBFormat;
@@ -57,7 +55,7 @@
     scene.add(skybox);
 
     renderer.setSize(width, height);
-    document.getElementById('app').appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
   }
 
   function animate() {
@@ -73,7 +71,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el)
       animate();
     },
   };

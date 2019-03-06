@@ -94,7 +94,7 @@ export default [{
   component: resolve => require(['./components/Loading'], resolve),
 }, {
   name: 'Panorama',
-  path: 'Panorama',
+  path: '/Panorama',
   component: resolve => require(['./components/Panorama'], resolve),
 }, {
   name: 'ParticleDemo',
