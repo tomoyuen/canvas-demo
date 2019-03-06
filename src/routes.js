@@ -82,7 +82,7 @@ export default [{
   component: resolve => require(['./components/ticTacToe'], resolve),
 }, {
   name: 'ticTacToe2',
-  path: 'ticTacToe2',
+  path: '/ticTacToe2',
   component: resolve => require(['./components/ticTacToe2'], resolve),
 }, {
   name: 'brick',

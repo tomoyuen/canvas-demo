@@ -1,3 +1,6 @@
+<template>
+  <div></div>
+</template>
 <script>
  /* eslint no-param-reassign: off */
   var canvasWidth = 0;
