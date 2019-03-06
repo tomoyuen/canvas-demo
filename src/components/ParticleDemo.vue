@@ -2,7 +2,6 @@
   <div></div>
 </template>
 <script>
-  import * as THREE from 'three';
   import particleSource from '../assets/images/particle.png';
 
   var particleCount = 1800,
@@ -13,13 +12,13 @@
     camera,
     particleSystem;
 
-  function init() {
-    renderer = new THREE.WebGLRenderer();
+  function init(container) {
+    renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setClearColor(new THREE.Color(0, 0, 0));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    document.getElementById('app').appendChild(renderer.domElement);
-    camera = new THREE.Camera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+    container.appendChild(renderer.domElement);
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
     camera.position.z = 300;
     scene = new THREE.Scene();
 
@@ -28,10 +27,8 @@
 
     const pMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 20,
-      map: paricleMap,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
+      size: 10,
+      map: paricleMap
     });
 
     for (let i = 0; i < particleCount; i++) {
@@ -50,6 +47,7 @@
 
     scene.add(particleSystem);
   }
+
 
   function animate() {
     var temp = particleCount;
@@ -73,7 +71,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };
