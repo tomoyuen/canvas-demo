@@ -1,5 +1,7 @@
 <template>
-  <canvas id="mainCanvas"></canvas>
+  <div>
+    <canvas id="mainCanvas"></canvas>
+  </div>
 </template>
 <style scoped>
   #mainCanvas {
@@ -7,8 +9,6 @@
   }
 </style>
 <script>
-  import * as THREE from 'three';
-
   export default {
     mounted() {
       const renderer = new THREE.WebGLRenderer({

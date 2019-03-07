@@ -1,10 +1,12 @@
+<template>
+  <div></div>
+</template>
 <script>
   /* eslint no-param-reassign: off */
   /* eslint object-shorthand: off */
   import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
 
   import texture1 from '../textures/envmap.png';
   import texture2 from '../textures/land_ocean_ice_cloud_2048.jpg';
@@ -63,6 +65,24 @@
     stats.update();
   }
 
+  function makeSprite() {
+    const PI2 = Math.PI * 2;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const spriteSize = 8;
+    canvas.width = canvas.height = spriteSize * 2;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
+    ctx.fill();
+
+    const sprite = new THREE.Texture(canvas);
+    sprite.needsUpdate = true;
+
+    return sprite;
+  }
+
   function init() {
     container = document.createElement('div');
     document.getElementById('app').appendChild(container);
@@ -111,24 +131,21 @@
       }),
       new THREE.MeshLambertMaterial({
         color: 0xffffff,
-        overdraw: 0.5,
       }),
       new THREE.MeshLambertMaterial({
         color: 0xffffff,
-        overdraw: 0.5,
       }),
-      new THREE.MeshNormalMaterial({ overdraw: 0.5 }),
+      new THREE.MeshNormalMaterial(),
       new THREE.MeshBasicMaterial({ map: earthTexture }),
       new THREE.MeshBasicMaterial({
         envMap: envMap,
-        overdraw: 0.5,
       }),
     ];
 
     for (const item of geometry2.faces) {
       if (Math.random() > 0.5) item.materialIndex = Math.floor(Math.random() * materials.length);
     }
-    materials.push(new THREE.MultiMaterial(materials));
+    materials.push(materials);
 
     objects = [];
 
@@ -146,8 +163,6 @@
       scene.add(sphere);
     }
 
-    const PI2 = Math.PI * 2;
-
     // Lights
     scene.add(new THREE.AmbientLight(Math.random() * 0x202020));
 
@@ -161,18 +176,14 @@
     pointLight = new THREE.PointLight(0xffffff, 1);
     scene.add(pointLight);
 
-    const sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
       color: 0xffffff,
-      program(context) {
-        context.beginPath();
-        context.arc(0, 0, 0.5, 0, PI2, true);
-        context.fill();
-      },
+      map: makeSprite(),
     }));
     sprite.scale.set(8, 8, 8);
     pointLight.add(sprite);
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);

@@ -1,3 +1,7 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   var margin = 50,
     padding = 30,

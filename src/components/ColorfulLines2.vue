@@ -14,11 +14,9 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-  import Detector from 'three/examples/js/Detector';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import 'three/examples/js/WebGL';
+  import Stats from 'stats.js';
   import hilbert2D from '../geometries/hilbert2D';
 
   var mouseX = 0,
@@ -31,8 +29,6 @@
     material;
 
   var stats;
-
-  if (!Detector.webgl) Detector.addGetWebGLMessage();
 
   function onWindowResize() {
     windowHalfX = window.innerWidth / 2;
@@ -100,7 +96,7 @@
 
     scene = new THREE.Scene();
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);

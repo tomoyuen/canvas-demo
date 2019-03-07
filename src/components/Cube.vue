@@ -13,11 +13,8 @@
 </style>
 <script>
   /* eslint no-use-before-define: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
-
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
 
   var container,
     stats;
@@ -92,10 +89,7 @@
     document.removeEventListener('mouseout', onDocumentMouseOut, false);
   }
 
-  function init() {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-
+  function init(container) {
     container.style.position = 'absolute';
     container.style.top = '0';
 
@@ -115,7 +109,6 @@
 
     const material = new THREE.MeshBasicMaterial({
       vertexColors: THREE.FaceColors,
-      overdraw: 0.5,
     });
 
     cube = new THREE.Mesh(geometry, material);
@@ -128,13 +121,12 @@
 
     const material1 = new THREE.MeshBasicMaterial({
       color: 0xe0e0e0,
-      overdraw: 0.5,
     });
 
     plane = new THREE.Mesh(geometry1, material1);
     scene.add(plane);
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xf0f0f0);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -165,7 +157,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

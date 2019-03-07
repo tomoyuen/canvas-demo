@@ -15,12 +15,9 @@
 </style>
 <script>
   /* eslint import/imports-first: off */
-  import * as THREE from 'three';
-  import Stats from 'three/examples/js/libs/stats.min';
+  import Stats from 'stats.js';
   import Bird from '../objects/Bird';
-
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
 
   var screenWidth = window.innerWidth,
     screenHeight = window.innerHeight,
@@ -273,11 +270,13 @@
           color: Math.random() * 0xffffff,
           side: THREE.DoubleSide,
         }));
+
+      bird.name = 'bird';
       bird.phase = Math.floor(Math.random() * 62.83);
       scene.add(bird);
     }
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xffffff);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(screenWidth, screenHeight);
@@ -289,6 +288,8 @@
     document.getElementById('container').appendChild(stats.dom);
 
     window.addEventListener('resize', onWindowResize, false);
+    window.THREE = THREE;
+    window.scene = scene;
   }
 
   function render() {
@@ -303,7 +304,7 @@
       color.r = color.g = color.b = (500 - bird.position.z) / 1000;
 
       bird.rotation.y = Math.atan2(-boid.velocity.z, boid.velocity.x);
-      bird.rotation.z = Math.atan2(boid.velocity.y / boid.velocity.length());
+      bird.rotation.z = Math.asin(boid.velocity.y / boid.velocity.length());
 
       bird.phase = (bird.phase + (Math.max(0, bird.rotation.z) + 0.1)) % 62.83;
       bird.geometry.vertices[5].y = bird.geometry.vertices[4].y = Math.sin(bird.phase) * 5;

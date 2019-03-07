@@ -1,3 +1,6 @@
+<template>
+  <div></div>
+</template>
 <script>
   /* eslint no-param-reassign: off */
   var unitLength = 20; // 单位长度，砖块的宽高比为2：1

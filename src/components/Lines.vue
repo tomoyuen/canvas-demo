@@ -14,9 +14,7 @@
 </style>
 <script>
   /* eslint no-param-reassign: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
-  import 'three/examples/js/renderers/CanvasRenderer';
 
   var mouseX = 0,
     mouseY = 0,
@@ -72,6 +70,24 @@
     render();
   }
 
+  function makeSprite() {
+    const PI2 = Math.PI * 2;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const spriteSize = 8;
+    canvas.width = canvas.height = spriteSize * 2;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
+    ctx.fill();
+
+    const sprite = new THREE.Texture(canvas);
+    sprite.needsUpdate = true;
+
+    return sprite;
+  }
+
   function init() {
     var container,
       particle;
@@ -84,19 +100,14 @@
 
     scene = new THREE.Scene();
 
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    const PI2 = Math.PI * 2;
-    const material = new THREE.SpriteCanvasMaterial({
+    const material = new THREE.SpriteMaterial({
       color: 0xffffff,
-      program(context) {
-        context.beginPath();
-        context.arc(0, 0, 0.5, 0, PI2, true);
-        context.fill();
-      },
+      map: makeSprite(),
     });
 
     const geometry = new THREE.Geometry();

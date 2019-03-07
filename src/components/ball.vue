@@ -1,18 +1,20 @@
 <template>
-  <div class="frame">
-    <div class="center">
-      <div class="ball-big">
-        <div class="plane plane-1"></div>
-        <div class="plane plane-2"></div>
-        <div class="plane plane-3"></div>
-        <div class="plane plane-4"></div>
-        <div class="plane plane-5"></div>
-        <div class="plane plane-6"></div>
+  <div>
+    <div class="frame">
+      <div class="center">
+        <div class="ball-big">
+          <div class="plane plane-1"></div>
+          <div class="plane plane-2"></div>
+          <div class="plane plane-3"></div>
+          <div class="plane plane-4"></div>
+          <div class="plane plane-5"></div>
+          <div class="plane plane-6"></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
   $numberOfPlanes: 6;
 
   .frame {
@@ -64,7 +66,6 @@
         transform: rotateX(calc((180 / $numberOfPlanes) * ($i - 1) * 1deg));
       }
     }
-
   }
 
   @keyframes ball {

@@ -15,12 +15,11 @@
       const max = 200;
       const canvas = document.createElement('canvas');
       const $ = canvas.getContext('2d');
-      const body = document.body;
       const particles = [];
 
-      body.style.backgroundColor = 'black';
-      body.style.overflow = 'hidden';
-      body.appendChild(canvas);
+      this.$el.style.backgroundColor = 'black';
+      this.$el.style.overflow = 'hidden';
+      this.$el.appendChild(canvas);
 
       let width = canvas.width = window.innerWidth;
       let height = canvas.height = window.innerHeight;
@@ -102,19 +101,23 @@
           }, i * 10);
         }
 
-        canvas.addEventListener('mousemove', touches);
-        canvas.addEventListener('touchmove', touches);
+        canvas.addEventListener('mousemove', touches, false);
+        canvas.addEventListener('touchmove', touches, false);
         canvas.addEventListener('mouseleave', () => {
           point = { x: width / 2, y: height / 2 };
-        });
+        }, false);
         window.addEventListener('resize', () => {
           width = canvas.width = window.innerWidth;
           height = canvas.height = window.innerHeight;
           point = { x: width / 2, y: height / 2 };
-        });
+        }, false);
         animate();
       }
       setup();
     },
+    destroyed() {
+      this.$el.style.backgroundColor = 'none';
+      this.$el.style.overflow = 'auto';
+    }
   };
 </script>

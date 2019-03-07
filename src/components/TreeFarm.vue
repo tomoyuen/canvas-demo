@@ -1,8 +1,10 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
-  import * as THREE from 'three';
-  import 'three/examples/js/renderers/CanvasRenderer';
   import 'three/examples/js/controls/OrbitControls';
 
   var scene,
@@ -15,7 +17,7 @@
     color: 0x2c9e4b,
     shininess: 20,
     side: THREE.FrontSide,
-    shading: THREE.SmoothShading,
+    flatShading: true,
   });
 
   function onWindowResize() {
@@ -138,7 +140,7 @@
     };
   }
 
-  function init() {
+  function init(container) {
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xf4f4f6, 20, 200);
 
@@ -156,7 +158,7 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     window.addEventListener('resize', onWindowResize, false);
-    document.getElementById('app').appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     orbit = new THREE.OrbitControls(camera, renderer.domElement);
     orbit.enableZoom = true;
@@ -201,7 +203,7 @@
       emissive: 0xebf7fd,
       emissiveIntensity: 0.2,
       side: THREE.DoubleSide,
-      shading: THREE.SmoothShading,
+      flatShading: true,
     });
 
     const plane = new THREE.Mesh(geometry, material);
@@ -244,7 +246,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
     },
   };
 </script>
