@@ -17,7 +17,7 @@
     color: 0x2c9e4b,
     shininess: 20,
     side: THREE.FrontSide,
-    shading: THREE.SmoothShading,
+    flatShading: true,
   });
 
   function onWindowResize() {
@@ -203,7 +203,7 @@
       emissive: 0xebf7fd,
       emissiveIntensity: 0.2,
       side: THREE.DoubleSide,
-      shading: THREE.SmoothShading,
+      flatShading: true,
     });
 
     const plane = new THREE.Mesh(geometry, material);
