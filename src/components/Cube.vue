@@ -16,8 +16,7 @@
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
 
-  var container,
-    stats;
+  var stats;
 
   var camera,
     scene,

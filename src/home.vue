@@ -2,7 +2,7 @@
   <div>
     <h1>Webgl Demos</h1>
     <ul>
-      <li v-for="item in demos" :key="item.name">
+      <li v-for="(item, index) in demos" :key="index">
         <router-link :to="{name: item.name}">{{item.name}}</router-link>
       </li>
     </ul>

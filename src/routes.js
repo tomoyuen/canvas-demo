@@ -105,11 +105,15 @@ export default [{
   path: '/TreeFarm',
   component: resolve => require(['./components/TreeFarm'], resolve),
 }, {
-  name: 'demo',
+  name: 'Demo',
   path: '/demo',
   component: resolve => require(['./components/demo'], resolve),
 }, {
-  name: 'ball',
+  name: 'Ball',
   path: '/ball',
   component: resolve => require(['./components/ball'], resolve),
+}, {
+  name: 'Connection',
+  path: '/connection',
+  component: resolve => require(['./components/Connection'], resolve),
 }];
