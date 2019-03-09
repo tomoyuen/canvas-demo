@@ -127,12 +127,12 @@
     link() {
       if (this.size < options.minSize) {
         this.isEnd = true;
-        return false;
+        return true;
       }
 
       const links = [],
         pos = {},
-        connectionsNum = options.baseConnections + Math.random() * options.addedConnections || 0;
+        connectionsNum = options.baseConnections + Math.random() * options.addedConnections | 0;
 
       let alpha,
         beta,
@@ -265,7 +265,7 @@
         this.reset();
       } else {
         this.connection = connection;
-        this.nextConnection = connection.links[connection.links.length * Math.random() || 0];
+        this.nextConnection = connection.links[connection.links.length * Math.random() | 0];
 
         this.ox = connection.x; // original coordinates
         this.oy = connection.y;
@@ -379,7 +379,7 @@
     toDevelop.length = 0;
 
     const connection = new Connection(0, 0, 0, options.baseSize);
-    connection.step = Connection.rootStep;
+    connection.step = connection.rootStep;
     connections.push(connection);
     all.push(connection);
     connection.link();
@@ -389,7 +389,7 @@
       toDevelop.shift();
     }
 
-    if (animating) {
+    if (!animating) {
       animating = true;
       animate();
     }
