@@ -116,4 +116,8 @@ export default [{
   name: 'Connection',
   path: '/connection',
   component: resolve => require(['./components/Connection'], resolve),
+}, {
+  name: 'Geometry',
+  path: '/geometry',
+  component: resolve => require(['./components/Geometry'], resolve),
 }];
