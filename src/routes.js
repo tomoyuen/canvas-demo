@@ -120,4 +120,8 @@ export default [{
   name: 'Geometry',
   path: '/geometry',
   component: resolve => require(['./components/Geometry'], resolve),
+}, {
+  name: 'Gravity',
+  path: '/gravity',
+  component: resolve => require(['./components/Gravity'], resolve)
 }];
