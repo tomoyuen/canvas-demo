@@ -124,4 +124,8 @@ export default [{
   name: 'Gravity',
   path: '/gravity',
   component: resolve => require(['./components/Gravity'], resolve)
+}, {
+  name: 'PictureFrame',
+  path: 'pictureframe',
+  component: resolve => require(['./components/PictureFrame'], resolve)
 }];

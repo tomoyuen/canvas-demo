@@ -1,3 +1,7 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   import frame from '../assets/images/picture-frame.jpg';
   import img from '../assets/images/tfboys.jpg';
@@ -51,7 +55,11 @@
     };
   });
 
-  Promise.all([frameGetPromise, picGetPromise]).then((imgs) => {
-    drawCanvas(imgs[0], imgs[1]);
-  });
+  export default {
+    mounted() {
+      Promise.all([frameGetPromise, picGetPromise]).then((imgs) => {
+        drawCanvas(imgs[0], imgs[1]);
+      });
+    }
+  }
 </script>
