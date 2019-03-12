@@ -4,9 +4,10 @@
   "description": "a 3d games",
   "main": "./dist/main.js",
   "scripts": {
-    "build:routes": "node ./scrips/build-routes.js",
-    "serve": "build:routes && vue-cli-service serve",
-    "build": "build:routes && vue-cli-service build",
+    "build:routes": "node scripts/build-routes.js",
+    "preserve": "npm run build:routes",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "repository": {
