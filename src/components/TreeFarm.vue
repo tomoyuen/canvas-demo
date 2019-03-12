@@ -6,6 +6,7 @@
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
   import 'three/examples/js/controls/OrbitControls';
+  import makeSprite from '../utils/makeSprite';
 
   var scene,
     camera,
@@ -86,23 +87,6 @@
     constructor: Tree,
   });
 
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
-  }
   // snow flowers
   function pointsParticles() {
     const pointGeometry = new THREE.Geometry();

@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - interactive - voxel painter
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - interactive - voxel painter
+    </div>
   </div>
 </template>
 <style scoped>
@@ -15,8 +17,7 @@
   /* eslint no-param-reassign: off */
   import 'three/examples/js/renderers/Projector';
 
-  var container,
-    camera,
+  var camera,
     scene,
     renderer;
   var plane;
@@ -88,15 +89,8 @@
         return;
     }
   }
-  // function save() {
-  //   window.open(renderer.domElement.toDataURL('image/png'), 'mywindow');
-  //   return false;
-  // }
 
-  function init() {
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(500, 800, 1300);
     camera.lookAt(new THREE.Vector3());
@@ -159,7 +153,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       render();
     },
   };

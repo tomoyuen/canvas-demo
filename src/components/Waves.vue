@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="waves"></div>
+    <div id="waves" ref="container"></div>
   </div>
 </template>
 <style scoped>
@@ -10,12 +10,7 @@
     background-color: #193c6d;
     filter: progid: DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#003073', endColorstr='#029797');
     background-image: url(//img.alicdn.com/tps/TB1d.u8MXXXXXXuXFXXXXXXXXXX-1900-790.jpg);
-    background-size: 100%;
-    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
-    background-image: -webkit-linear-gradient(135deg, #003073, #029797);
-    background-image: -moz-linear-gradient(45deg, #003073, #029797);
-    background-image: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
-    background-image: -o-linear-gradient(45deg, #003073, #029797);
+    background-size: 100% 100%;
     background-image: linear-gradient(135deg, #003073, #029797);
     text-align: center;
     margin: 0px;
@@ -23,13 +18,13 @@
   }
 </style>
 <script>
-  /* global THREE */
+  import makeSprite from '../utils/makeSprite';
+
   const SEPARATION = 100,
     AMOUNTX = 100,
     AMOUNTY = 70;
 
 
-  var container;
   var camera,
     scene,
     renderer;
@@ -75,25 +70,7 @@
     }
   }
 
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
-  }
-
-  function init() {
+  function init(container) {
     camera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 1000;
 
@@ -116,7 +93,6 @@
       }
     }
 
-    container = document.querySelector('#waves');
     renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
@@ -155,7 +131,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$refs.container);
       animate();
     },
   };
