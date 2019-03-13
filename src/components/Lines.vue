@@ -15,6 +15,7 @@
 <script>
   /* eslint no-param-reassign: off */
   import 'three/examples/js/renderers/Projector';
+  import makeSprite from '../utils/makeSprite';
 
   var mouseX = 0,
     mouseY = 0,
@@ -68,24 +69,6 @@
   function animate() {
     window.requestAnimationFrame(animate);
     render();
-  }
-
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
   }
 
   function init(container) {
