@@ -100,19 +100,19 @@
     }
   }
 
-  function init() {
+  function init(container) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     canvas.width = canvas.height = 500;
     drawHorizontal(context, 500, 500);
     drawVertical(context, 500, 500);
 
-    document.getElementById('app').appendChild(canvas);
+    container.appendChild(canvas);
   }
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
     },
   };
 </script>

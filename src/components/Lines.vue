@@ -88,12 +88,8 @@
     return sprite;
   }
 
-  function init() {
-    var container,
-      particle;
-
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
+  function init(container) {
+    var particle;
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 100;
@@ -139,7 +135,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

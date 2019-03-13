@@ -4,15 +4,14 @@
 <script>
   /* eslint no-param-reassign: off */
   /* eslint object-shorthand: off */
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
+  import makeSprite from '../utils/makeSprite';
 
   import texture1 from '../textures/envmap.png';
   import texture2 from '../textures/land_ocean_ice_cloud_2048.jpg';
 
-  var container,
-    stats;
+  var stats;
 
   var camera,
     scene,
@@ -65,28 +64,7 @@
     stats.update();
   }
 
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
-  }
-
-  function init() {
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
     camera.position.set(0, 200, 800);
     scene = new THREE.Scene();
@@ -209,7 +187,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

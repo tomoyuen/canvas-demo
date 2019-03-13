@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - dashed lines example
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - dashed lines example
+    </div>
   </div>
 </template>
 <style scoped>
@@ -98,7 +100,7 @@
     stats.update();
   }
 
-  function init() {
+  function init(container) {
     camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 1, 200);
     camera.position.z = 150;
 
@@ -145,9 +147,7 @@
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(WIDTH, HEIGHT);
 
-    const container = document.createElement('div');
     container.appendChild(renderer.domElement);
-    document.getElementById('app').appendChild(container);
 
     stats = new Stats();
     container.appendChild(stats.dom);
@@ -157,7 +157,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

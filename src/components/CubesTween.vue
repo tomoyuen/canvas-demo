@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - iteractive - cubes tween
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - iteractive - cubes tween
+    </div>
   </div>
 </template>
 <style scoped>
@@ -17,8 +19,7 @@
   import Stats from 'stats.js';
   import TWEEN from 'tween.js';
 
-  var container,
-    stats;
+  var stats;
   var camera,
     scene,
     renderer;
@@ -66,10 +67,7 @@
     onDocumentMouseDown(event);
   }
 
-  function init() {
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.y = 300;
     camera.position.z = 500;
@@ -135,7 +133,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - lines - random
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - lines - random
+    </div>
   </div>
 </template>
 <style scoped>
@@ -84,12 +86,7 @@
     stats.update();
   }
 
-  function init() {
-    var container;
-
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(33, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 700;
 
@@ -138,7 +135,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

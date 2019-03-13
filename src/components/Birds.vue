@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div id="container"></div>
     <div id="info">three.js - birds demo</div>
   </div>
 </template>
@@ -244,7 +243,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
-  function init() {
+  function init(container) {
     camera = new THREE.PerspectiveCamera(75, screenWidth / screenHeight, 1, 10000);
     camera.position.z = 450;
 
@@ -282,10 +281,10 @@
     renderer.setSize(screenWidth, screenHeight);
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
-    document.getElementById('container').appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     stats = new Stats();
-    document.getElementById('container').appendChild(stats.dom);
+    container.appendChild(stats.dom);
 
     window.addEventListener('resize', onWindowResize, false);
     window.THREE = THREE;
@@ -322,7 +321,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

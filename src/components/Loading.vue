@@ -60,19 +60,19 @@
     };
   }
 
-  function drawCanvas() {
+  function drawCanvas(container) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.height = 500;
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
     window.requestAnimationFrame(createStep(ctx));
-    document.getElementById('app').appendChild(canvas);
+    container.appendChild(canvas);
   }
 
   export default {
     mounted() {
-      drawCanvas();
+      drawCanvas(this.$el);
     },
   };
 </script>

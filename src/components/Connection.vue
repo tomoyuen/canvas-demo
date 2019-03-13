@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" ref="canvas"></canvas>
   </div>
 </template>
 <!--
@@ -361,8 +361,7 @@
     // ctx.stroke();
   }
 
-  function init() {
-    canvas = document.querySelector('#canvas');
+  function init(canvas) {
     canvas.width = width;
     canvas.height = height;
     ctx = canvas.getContext('2d');
@@ -397,7 +396,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$refs.canvas);
 
       window.addEventListener('resize', () => {
         options.vanishPoint.x = (width = canvas.width = window.innerWidth) / 2;
