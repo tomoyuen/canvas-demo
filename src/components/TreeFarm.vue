@@ -49,43 +49,38 @@
     return sprite;
   }
 
-  function Cone(size = 10, translate) {
-    this.geometry = new THREE.CylinderGeometry(size / 2, size, size, 6);
-    if (translate) {
-      this.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, size, 0));
-    }
-    THREE.Mesh.call(this, this.geometry, treeMaterial);
-  }
-
-  Cone.prototype = Object.assign(THREE.Mesh.prototype, {
-    constructor: Cone,
-  });
-
-  function Tree(size = 6 + Math.random()) {
-    THREE.Object3D.call(this);
-
-    let lastCone;
-    let cone;
-
-    for (let i = 0; i < size; i++) {
-      cone = new Cone((size - i) + 1, i);
-      cone.position.y = 0;
-      if (lastCone) {
-        const box = new THREE.Box3().setFromObject(lastCone);
-        cone.position.y = (box.max.y + box.min.y) / 2;
-      } else {
-        cone.position.y += 2;
+  class Cone extends THREE.Mesh {
+    constructor(material, size = 10, translate) {
+      const geometry = new THREE.CylinderGeometry(size / 2, size, size, 6);
+      if (translate) {
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, size, 0));
       }
-      lastCone = cone;
-      cone.castShadow = true;
-      cone.receiveShadow = true;
-      this.add(cone);
+      super(geometry, material);
     }
   }
 
-  Tree.prototype = Object.assign(THREE.Object3D.prototype, {
-    constructor: Tree,
-  });
+  class Tree extends THREE.Object3D {
+    constructor(size = 6 + Math.random()) {
+      super();
+      let lastCone;
+      let cone;
+
+      for (let i = 0; i < size; i++) {
+        cone = new Cone(treeMaterial, (size - i) + 1, i);
+        cone.position.y = 0;
+        if (lastCone) {
+          const box = new THREE.Box3().setFromObject(lastCone);
+          cone.position.y = (box.max.y + box.min.y) / 2;
+        } else {
+          cone.position.y += 2;
+        }
+        lastCone = cone;
+        cone.castShadow = true;
+        cone.receiveShadow = true;
+        this.add(cone);
+      }
+    }
+  }
 
   // snow flowers
   function pointsParticles() {
