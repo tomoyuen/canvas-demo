@@ -6,10 +6,10 @@
   /* eslint object-shorthand: off */
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
-  import makeSprite from '../utils/makeSprite';
+  import makeSprite from 'utils/makeSprite';
 
-  import texture1 from '../textures/envmap.png';
-  import texture2 from '../textures/land_ocean_ice_cloud_2048.jpg';
+  import texture1 from 'textures/envmap.png';
+  import texture2 from 'textures/land_ocean_ice_cloud_2048.jpg';
 
   var stats;
 

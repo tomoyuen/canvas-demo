@@ -18,7 +18,7 @@
   }
 </style>
 <script>
-  import makeSprite from '../utils/makeSprite';
+  import makeSprite from 'utils/makeSprite';
 
   const SEPARATION = 100,
     AMOUNTX = 100,

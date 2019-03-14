@@ -15,7 +15,7 @@
 <script>
   /* eslint no-param-reassign: off */
   import 'three/examples/js/renderers/Projector';
-  import makeSprite from '../utils/makeSprite';
+  import makeSprite from 'utils/makeSprite';
 
   var mouseX = 0,
     mouseY = 0,

@@ -8,125 +8,125 @@ export default [{
 },{
   name: 'Attraction',
   path: '/attraction',
-  component: () => import('./components/Attraction.vue'),
+  component: () => import('components/Attraction.vue'),
 },{
   name: 'Ball',
   path: '/ball',
-  component: () => import('./components/Ball.vue'),
+  component: () => import('components/Ball.vue'),
 },{
   name: 'Birds',
   path: '/birds',
-  component: () => import('./components/Birds.vue'),
+  component: () => import('components/Birds.vue'),
 },{
-  name: 'Brick',
+  name: 'brick',
   path: '/brick',
-  component: () => import('./components/Brick.vue'),
+  component: () => import('components/brick.vue'),
 },{
   name: 'CircleParticles',
   path: '/circleparticles',
-  component: () => import('./components/CircleParticles.vue'),
+  component: () => import('components/CircleParticles.vue'),
 },{
   name: 'ColorfulLines',
   path: '/colorfullines',
-  component: () => import('./components/ColorfulLines.vue'),
+  component: () => import('components/ColorfulLines.vue'),
 },{
   name: 'ColorfulLines2',
   path: '/colorfullines2',
-  component: () => import('./components/ColorfulLines2.vue'),
+  component: () => import('components/ColorfulLines2.vue'),
 },{
   name: 'Connection',
   path: '/connection',
-  component: () => import('./components/Connection.vue'),
+  component: () => import('components/Connection.vue'),
 },{
   name: 'Cube',
   path: '/cube',
-  component: () => import('./components/Cube.vue'),
+  component: () => import('components/Cube.vue'),
 },{
   name: 'CubesTween',
   path: '/cubestween',
-  component: () => import('./components/CubesTween.vue'),
+  component: () => import('components/CubesTween.vue'),
 },{
   name: 'DashedLines',
   path: '/dashedlines',
-  component: () => import('./components/DashedLines.vue'),
+  component: () => import('components/DashedLines.vue'),
 },{
   name: 'Demo',
   path: '/demo',
-  component: () => import('./components/Demo.vue'),
+  component: () => import('components/Demo.vue'),
 },{
   name: 'Geometry',
   path: '/geometry',
-  component: () => import('./components/Geometry.vue'),
+  component: () => import('components/Geometry.vue'),
 },{
   name: 'Gravity',
   path: '/gravity',
-  component: () => import('./components/Gravity.vue'),
+  component: () => import('components/Gravity.vue'),
 },{
   name: 'Hierarchy',
   path: '/hierarchy',
-  component: () => import('./components/Hierarchy.vue'),
+  component: () => import('components/Hierarchy.vue'),
 },{
   name: 'InteractiveCubes',
   path: '/interactivecubes',
-  component: () => import('./components/InteractiveCubes.vue'),
+  component: () => import('components/InteractiveCubes.vue'),
 },{
   name: 'Lines',
   path: '/lines',
-  component: () => import('./components/Lines.vue'),
+  component: () => import('components/Lines.vue'),
 },{
   name: 'Loading',
   path: '/loading',
-  component: () => import('./components/Loading.vue'),
+  component: () => import('components/Loading.vue'),
 },{
   name: 'Materials',
   path: '/materials',
-  component: () => import('./components/Materials.vue'),
+  component: () => import('components/Materials.vue'),
 },{
   name: 'MouseBalls',
   path: '/mouseballs',
-  component: () => import('./components/MouseBalls.vue'),
+  component: () => import('components/MouseBalls.vue'),
 },{
   name: 'Panorama',
   path: '/panorama',
-  component: () => import('./components/Panorama.vue'),
+  component: () => import('components/Panorama.vue'),
 },{
   name: 'Particle',
   path: '/particle',
-  component: () => import('./components/Particle.vue'),
+  component: () => import('components/Particle.vue'),
 },{
   name: 'ParticleDemo',
   path: '/particledemo',
-  component: () => import('./components/ParticleDemo.vue'),
+  component: () => import('components/ParticleDemo.vue'),
 },{
   name: 'PictureFrame',
   path: '/pictureframe',
-  component: () => import('./components/PictureFrame.vue'),
+  component: () => import('components/PictureFrame.vue'),
 },{
   name: 'Shape',
   path: '/shape',
-  component: () => import('./components/Shape.vue'),
+  component: () => import('components/Shape.vue'),
 },{
   name: 'SphereLines',
   path: '/spherelines',
-  component: () => import('./components/SphereLines.vue'),
+  component: () => import('components/SphereLines.vue'),
 },{
   name: 'TicTacToe',
   path: '/tictactoe',
-  component: () => import('./components/TicTacToe.vue'),
+  component: () => import('components/TicTacToe.vue'),
 },{
   name: 'TicTacToe2',
   path: '/tictactoe2',
-  component: () => import('./components/TicTacToe2.vue'),
+  component: () => import('components/TicTacToe2.vue'),
 },{
   name: 'TreeFarm',
   path: '/treefarm',
-  component: () => import('./components/TreeFarm.vue'),
+  component: () => import('components/TreeFarm.vue'),
 },{
   name: 'VoxelPainter',
   path: '/voxelpainter',
-  component: () => import('./components/VoxelPainter.vue'),
+  component: () => import('components/VoxelPainter.vue'),
 },{
   name: 'Waves',
   path: '/waves',
-  component: () => import('./components/Waves.vue'),
+  component: () => import('components/Waves.vue'),
 }];

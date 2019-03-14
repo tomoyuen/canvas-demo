@@ -6,7 +6,7 @@
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
   import 'three/examples/js/controls/OrbitControls';
-  import makeSprite from '../utils/makeSprite';
+  import makeSprite from 'utils/makeSprite';
 
   var scene,
     camera,

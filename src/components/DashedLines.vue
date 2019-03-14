@@ -19,7 +19,7 @@
   /* eslint no-param-reassign: off */
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
-  import hilbert3D from '../geometries/hilbert3D';
+  import hilbert3D from 'geometries/hilbert3D';
 
   var renderer,
     scene,

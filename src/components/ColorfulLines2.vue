@@ -19,7 +19,7 @@
   import 'three/examples/js/renderers/Projector';
   import 'three/examples/js/WebGL';
   import Stats from 'stats.js';
-  import hilbert2D from '../geometries/hilbert2D';
+  import hilbert2D from 'geometries/hilbert2D';
 
   var mouseX = 0,
     mouseY = 0,

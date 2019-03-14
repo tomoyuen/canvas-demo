@@ -25,7 +25,7 @@ files.forEach(item => {
   routeTemplates.push(ROUTE_TEMPLATE
     .replace('{{name}}', name)
     .replace('{{route_path}}', `/${name.toLowerCase()}`)
-    .replace('{{path}}', item.replace('src/', './')));
+    .replace('{{path}}', item.replace('src/', '')));
 });
 
 fs.writeFile(OUTPUT_PATH, MAIN_TEMPLATE.replace('{{list}}', routeTemplates), {}, () => {
