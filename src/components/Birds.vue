@@ -15,7 +15,7 @@
 <script>
   /* eslint import/imports-first: off */
   import Stats from 'stats.js';
-  import Bird from 'objects/Bird';
+  import Bird from 'geometries/Bird';
   import 'three/examples/js/renderers/Projector';
 
   var screenWidth = window.innerWidth,
