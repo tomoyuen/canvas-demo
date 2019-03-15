@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
 
   import Stats from 'stats.js';

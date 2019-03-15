@@ -12,7 +12,7 @@
   const { random, atan2, cos, sin, hypot } = Math;
   const max = 200;
   const canvas = document.createElement('canvas');
-  const $ = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   const particles = [];
 
   let width,
@@ -21,23 +21,15 @@
     hue = 0;
 
   class Particle {
-    init() {
-      this.hue = hue;
-      this.alpha = 0;
-      this.size = this.random(1, 5);
-      this.x = this.random(0, width);
-      this.y = this.random(0, height);
-      this.velocity = this.size * 0.5;
-      this.changed = null;
-      this.changedFrame = 0;
-      this.maxChangedFrames = 50;
-      return this;
+    constructor(context) {
+      this.context = context;
+      this.init();
     }
     draw() {
-      $.strokeStyle = `hsla(${this.hue}, 100%, 50%, ${this.alpha})`;
-      $.beginPath();
-      $.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-      $.stroke();
+      this.context.strokeStyle = `hsla(${this.hue}, 100%, 50%, ${this.alpha})`;
+      this.context.beginPath();
+      this.context.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+      this.context.stroke();
       this.update();
     }
     update() {
@@ -61,6 +53,17 @@
         this.velocity += 0.02;
       }
     }
+    init() {
+      this.hue = hue;
+      this.alpha = 0;
+      this.size = this.random(1, 5);
+      this.x = this.random(0, width);
+      this.y = this.random(0, height);
+      this.velocity = this.size * 0.5;
+      this.changed = null;
+      this.changedFrame = 0;
+      this.maxChangedFrames = 50;
+    }
     reset() {
       this.init();
     }
@@ -73,8 +76,8 @@
   }
 
   function animate() {
-    $.fillStyle = 'rgba(0,0,0, .2)';
-    $.fillRect(0, 0, width, height);
+    ctx.fillStyle = 'rgba(0,0,0, .2)';
+    ctx.fillRect(0, 0, width, height);
     particles.forEach((p) => {
       p.draw();
     });
@@ -90,7 +93,7 @@
   function setup() {
     for (let i = 0; i < max; i += 1) {
       setTimeout(() => {
-        const p = new Particle().init();
+        const p = new Particle(ctx);
         particles.push(p);
       }, i * 10);
     }
