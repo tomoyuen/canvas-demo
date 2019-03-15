@@ -15,6 +15,7 @@
 <script>
   /* eslint no-param-reassign: off */
   import 'three/examples/js/renderers/Projector';
+  import makeSprite from 'utils/makeSprite';
 
   var mouseX = 0,
     mouseY = 0,
@@ -70,30 +71,8 @@
     render();
   }
 
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
-  }
-
-  function init() {
-    var container,
-      particle;
-
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
+  function init(container) {
+    var particle;
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 100;
@@ -139,7 +118,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

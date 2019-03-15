@@ -1,7 +1,8 @@
 <template>
   <div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" ref="canvas"></canvas>
   </div>
+</template>
 <!--
   ALGORITHM:
   structure:
@@ -29,14 +30,12 @@
       - pick( random node from node children )
 
   - pick( original node)
-
   -->
-</template>
 <script>
-  var canvas = document.querySelector('#canvas'),
-    width = canvas.width = window.innerWidth,
-    height = canvas.height = window.innerHeight,
-    ctx = canvas.getContext('2d'),
+  var canvas,
+    width = window.innerWidth,
+    height = window.innerHeight,
+    ctx,
     options = {
       range: 180,
       baseConnections: 3,
@@ -93,12 +92,6 @@
 
     Tau = Math.PI * 2;
 
-  ctx.fillStyle = '#222';
-  ctx.fillRect(0, 0, width, height);
-  ctx.fillStyle = '#ccc';
-  ctx.font = '50px Verdana';
-  ctx.fillText('Calculating Nodes', width / 2 - ctx.measureText('Calculating Nodes').width / 2, height / 2 - 15);
-
   function squareDist(a, b) {
     const x = b.x - a.x,
       y = b.y - a.y,
@@ -134,12 +127,12 @@
     link() {
       if (this.size < options.minSize) {
         this.isEnd = true;
-        return false;
+        return true;
       }
 
       const links = [],
         pos = {},
-        connectionsNum = options.baseConnections + Math.random() * options.addedConnections || 0;
+        connectionsNum = options.baseConnections + Math.random() * options.addedConnections | 0;
 
       let alpha,
         beta,
@@ -272,7 +265,7 @@
         this.reset();
       } else {
         this.connection = connection;
-        this.nextConnection = connection.links[connection.links.length * Math.random() || 0];
+        this.nextConnection = connection.links[connection.links.length * Math.random() | 0];
 
         this.ox = connection.x; // original coordinates
         this.oy = connection.y;
@@ -368,14 +361,24 @@
     // ctx.stroke();
   }
 
-  function init() {
+  function init(canvas) {
+    canvas.width = width;
+    canvas.height = height;
+    ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#222';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = '#ccc';
+    ctx.font = '50px Verdana';
+    ctx.fillText('Calculating Nodes', width / 2 - ctx.measureText('Calculating Nodes').width / 2, height / 2 - 15);
+
     connections.length = 0;
     data.length = 0;
     all.length = 0;
     toDevelop.length = 0;
 
     const connection = new Connection(0, 0, 0, options.baseSize);
-    connection.step = Connection.rootStep;
+    connection.step = connection.rootStep;
     connections.push(connection);
     all.push(connection);
     connection.link();
@@ -385,7 +388,7 @@
       toDevelop.shift();
     }
 
-    if (animating) {
+    if (!animating) {
       animating = true;
       animate();
     }
@@ -393,7 +396,7 @@
 
   export default {
     mounted() {
-      window.setTimeout(init, 4); // to render the loading screen
+      init(this.$refs.canvas);
 
       window.addEventListener('resize', () => {
         options.vanishPoint.x = (width = canvas.width = window.innerWidth) / 2;

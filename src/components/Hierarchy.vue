@@ -3,13 +3,11 @@
 </template>
 
 <script>
-  import * as THREE from 'three';
   import 'three/examples/js/renderers/Projector';
 
   import Stats from 'stats.js';
 
-  var container,
-    stats;
+  var stats;
 
   var camera,
     scene,
@@ -58,10 +56,7 @@
     stats.update();
   }
 
-  function init() {
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 500;
 
@@ -103,7 +98,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

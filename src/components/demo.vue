@@ -7,21 +7,19 @@
 import particleAsset from '../assets/images/particle.png';
 
 // 设置场景大小
-var width = 500,
-  height = 500;
+const width = window.innerWidth,
+  height = window.innerHeight;
 // 设置一些相机参数
-var viewAngle = 45,
+const viewAngle = 45,
   aspect = width / height,
   near = 0.1,
   far = 1000;
 
-function init() {
-  // 获取DOM结构中的元素
-  var container = document.querySelector('#app');
+function init(container) {
   // 创建渲染器、相机和场景
-  var renderer = new THREE.WebGLRenderer();
-  var camera = new THREE.PerspectiveCamera(viewAngle, aspect, near, far);
-  var scene = new THREE.Scene();
+  const renderer = new THREE.WebGLRenderer();
+  const camera = new THREE.PerspectiveCamera(viewAngle, aspect, near, far);
+  const scene = new THREE.Scene();
 
   // 设置球体参数
   const radius = 50,
@@ -141,7 +139,7 @@ export default {
   },
   mounted() {
     console.log('mounted');
-    init();
+    init(this.$el);
   },
   beforeUpdate() {
     console.log('before update');

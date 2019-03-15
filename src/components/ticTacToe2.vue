@@ -75,11 +75,11 @@
     ctx.stroke(circle);
   }
 
-  function drawCanvas() {
+  function drawCanvas(container) {
     var canvas = document.createElement('canvas');
     canvas.width = 1000;
     canvas.height = 1000;
-    document.getElementById('app').appendChild(canvas);
+    container.appendChild(canvas);
     const context = canvas.getContext('2d');
     drawChessboard(context);
     drawChesspiece(context);
@@ -87,7 +87,7 @@
 
   export default {
     mounted() {
-      drawCanvas();
+      drawCanvas(this.$el);
     },
   };
 </script>

@@ -1,12 +1,16 @@
+<template>
+  <div></div>
+</template>
+
 <script>
   import frame from '../assets/images/picture-frame.jpg';
   import img from '../assets/images/tfboys.jpg';
 
-  function drawCanvas(frameImg, picImg) {
+  function drawCanvas(container, frameImg, picImg) {
     const canvas = document.createElement('canvas');
     canvas.width = 1200;
     canvas.height = 500;
-    document.getElementById('app').appendChild(canvas);
+    container.appendChild(canvas);
 
     const context = canvas.getContext('2d');
 
@@ -51,7 +55,11 @@
     };
   });
 
-  Promise.all([frameGetPromise, picGetPromise]).then((imgs) => {
-    drawCanvas(imgs[0], imgs[1]);
-  });
+  export default {
+    mounted() {
+      Promise.all([frameGetPromise, picGetPromise]).then((imgs) => {
+        drawCanvas(this.$el, imgs[0], imgs[1]);
+      });
+    }
+  }
 </script>

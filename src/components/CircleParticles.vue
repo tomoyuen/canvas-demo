@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - iteractive particles
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - iteractive particles
+    </div>
   </div>
 </template>
 <style scoped>
@@ -16,8 +18,7 @@
   import 'three/examples/js/renderers/Projector';
   import Stats from 'stats.js';
 
-  var container,
-    stats;
+  var stats;
   var camera,
     scene,
     renderer;
@@ -55,10 +56,7 @@
     mouse.y = -((event.clientY / window.innerHeight) * 2) + 1;
   }
 
-  function init() {
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 300, 500);
 
@@ -130,7 +128,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };

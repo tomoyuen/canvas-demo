@@ -6,19 +6,14 @@
   /* eslint no-param-reassign: off */
   /* esint no-shadow: off */
   import 'three/examples/js/controls/OrbitControls';
+  import Tree from 'objects/Tree';
+  import makeSprite from 'utils/makeSprite';
 
   var scene,
     camera,
     renderer,
     orbit,
     light;
-
-  const treeMaterial = new THREE.MeshPhongMaterial({
-    color: 0x2c9e4b,
-    shininess: 20,
-    side: THREE.FrontSide,
-    flatShading: true,
-  });
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -48,61 +43,6 @@
     return sprite;
   }
 
-  function Cone(size = 10, translate) {
-    this.geometry = new THREE.CylinderGeometry(size / 2, size, size, 6);
-    if (translate) {
-      this.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, size, 0));
-    }
-    THREE.Mesh.call(this, this.geometry, treeMaterial);
-  }
-
-  Cone.prototype = Object.assign(THREE.Mesh.prototype, {
-    constructor: Cone,
-  });
-
-  function Tree(size = 6 + Math.random()) {
-    THREE.Object3D.call(this);
-
-    let lastCone;
-    let cone;
-
-    for (let i = 0; i < size; i++) {
-      cone = new Cone((size - i) + 1, i);
-      cone.position.y = 0;
-      if (lastCone) {
-        const box = new THREE.Box3().setFromObject(lastCone);
-        cone.position.y = (box.max.y + box.min.y) / 2;
-      } else {
-        cone.position.y += 2;
-      }
-      lastCone = cone;
-      cone.castShadow = true;
-      cone.receiveShadow = true;
-      this.add(cone);
-    }
-  }
-
-  Tree.prototype = Object.assign(THREE.Object3D.prototype, {
-    constructor: Tree,
-  });
-
-  function makeSprite() {
-    const PI2 = Math.PI * 2;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const spriteSize = 8;
-    canvas.width = canvas.height = spriteSize * 2;
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(spriteSize, spriteSize, spriteSize, 0, PI2, true);
-    ctx.fill();
-
-    const sprite = new THREE.Texture(canvas);
-    sprite.needsUpdate = true;
-
-    return sprite;
-  }
   // snow flowers
   function pointsParticles() {
     const pointGeometry = new THREE.Geometry();

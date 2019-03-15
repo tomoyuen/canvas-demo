@@ -1,6 +1,8 @@
 <template>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank">three.js</a> - lines - WebGL demo
+  <div>
+    <div id="info">
+      <a href="http://threejs.org" target="_blank">three.js</a> - lines - WebGL demo
+    </div>
   </div>
 </template>
 <style scoped>
@@ -17,7 +19,7 @@
   import 'three/examples/js/renderers/Projector';
   import 'three/examples/js/WebGL';
   import Stats from 'stats.js';
-  import hilbert2D from '../geometries/hilbert2D';
+  import hilbert2D from 'geometries/hilbert2D';
 
   var mouseX = 0,
     mouseY = 0,
@@ -85,12 +87,7 @@
     stats.update();
   }
 
-  function init() {
-    var container;
-
-    container = document.createElement('div');
-    document.getElementById('app').appendChild(container);
-
+  function init(container) {
     camera = new THREE.PerspectiveCamera(33, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 700;
 
@@ -139,7 +136,7 @@
 
   export default {
     mounted() {
-      init();
+      init(this.$el);
       animate();
     },
   };
