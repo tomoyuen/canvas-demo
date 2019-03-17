@@ -10,9 +10,9 @@ export default [{
   path: '/attraction',
   component: () => import('components/Attraction.vue'),
 },{
-  name: 'Ball',
+  name: 'ball',
   path: '/ball',
-  component: () => import('components/Ball.vue'),
+  component: () => import('components/ball.vue'),
 },{
   name: 'Birds',
   path: '/birds',
@@ -21,6 +21,10 @@ export default [{
   name: 'brick',
   path: '/brick',
   component: () => import('components/brick.vue'),
+},{
+  name: 'Circle',
+  path: '/circle',
+  component: () => import('components/Circle.vue'),
 },{
   name: 'CircleParticles',
   path: '/circleparticles',
@@ -50,9 +54,9 @@ export default [{
   path: '/dashedlines',
   component: () => import('components/DashedLines.vue'),
 },{
-  name: 'Demo',
+  name: 'demo',
   path: '/demo',
-  component: () => import('components/Demo.vue'),
+  component: () => import('components/demo.vue'),
 },{
   name: 'Geometry',
   path: '/geometry',
@@ -90,9 +94,9 @@ export default [{
   path: '/panorama',
   component: () => import('components/Panorama.vue'),
 },{
-  name: 'Particle',
+  name: 'particle',
   path: '/particle',
-  component: () => import('components/Particle.vue'),
+  component: () => import('components/particle.vue'),
 },{
   name: 'ParticleDemo',
   path: '/particledemo',
@@ -110,13 +114,13 @@ export default [{
   path: '/spherelines',
   component: () => import('components/SphereLines.vue'),
 },{
-  name: 'TicTacToe',
+  name: 'ticTacToe',
   path: '/tictactoe',
-  component: () => import('components/TicTacToe.vue'),
+  component: () => import('components/ticTacToe.vue'),
 },{
-  name: 'TicTacToe2',
+  name: 'ticTacToe2',
   path: '/tictactoe2',
-  component: () => import('components/TicTacToe2.vue'),
+  component: () => import('components/ticTacToe2.vue'),
 },{
   name: 'TreeFarm',
   path: '/treefarm',
