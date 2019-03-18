@@ -38,6 +38,10 @@ export default [{
   path: '/colorfullines2',
   component: () => import('components/ColorfulLines2.vue'),
 },{
+  name: 'Cone',
+  path: '/cone',
+  component: () => import('components/Cone.vue'),
+},{
   name: 'Connection',
   path: '/connection',
   component: () => import('components/Connection.vue'),
