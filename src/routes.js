@@ -10,9 +10,9 @@ export default [{
   path: '/attraction',
   component: () => import('components/Attraction.vue'),
 },{
-  name: 'ball',
+  name: 'Ball',
   path: '/ball',
-  component: () => import('components/ball.vue'),
+  component: () => import('components/Ball.vue'),
 },{
   name: 'Birds',
   path: '/birds',
