@@ -14,9 +14,7 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-  $numberOfPlanes: 6;
-
+<style scoped>
   .frame {
     position: absolute;
     top: 50%;
@@ -61,9 +59,9 @@
       opacity: .3;
     }
 
-    @for $i from 1 to $numberOfPlanes {
+    @for $i from 1 to 6 {
       .plane-$i {
-        transform: rotateX(calc((180 / $numberOfPlanes) * ($i - 1) * 1deg));
+        transform: rotateX(calc((180 / 6) * ($i - 1) * 1deg));
       }
     }
   }
