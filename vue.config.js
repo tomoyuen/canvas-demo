@@ -21,5 +21,6 @@ module.exports = {
         THREE: 'three',
       }),
     ]
-  }
+  },
+  publicPath: '.'
 }
