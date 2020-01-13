@@ -38,3 +38,6 @@ jspm_packages
 
 # Vscode project directory
 .vscode
+
+# build folder
+dist
