@@ -25,7 +25,6 @@
   /*
    * code from: http://codepen.io/akm2/pen/rHIsa
    */
-  /* global window */
   /* eslint no-underscore-dangle: off */
   /* eslint no-continue: off */
   /* eslint no-param-reassign: off */
@@ -167,7 +166,7 @@
     }
     render(ctx) {
       if (this.destroyed) return;
-      for (const item of this._targets.particles) {
+      for (var item of this._targets.particles) {
         item.addSpeed(Vector.sub(this, item).normalize().scale(this.gravity));
       }
       this._easeRadius = (this._easeRadius + ((this.radius - this.currentRadius) * 0.07)) * 0.95;
@@ -182,7 +181,7 @@
       const area = this.radius * this.radius * Math.PI;
       let absorp;
       let garea;
-      for (const item of this._targets.gravities) {
+      for (item of this._targets.gravities) {
         if (item === this || item.destroyed) continue;
         if (
           (this.currentRadius >= item.radius || this.dragging) &&
@@ -347,7 +346,7 @@
     }
 
     function mouseUp() {
-      for (const item of gravities) {
+      for (var item of gravities) {
         if (item.dragging) {
           item.endDrag();
           break;

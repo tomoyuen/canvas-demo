@@ -85,7 +85,7 @@
   function render() {
     const time = Date.now() * 0.001;
 
-    for (const item of objects) {
+    for (var item of objects) {
       item.rotation.x = 0.25 * time;
       item.rotation.y = 0.25 * time;
     }

@@ -13,7 +13,6 @@
   }
 </style>
 <script>
-  /* eslint import/imports-first: off */
   import Stats from 'stats.js';
   import Bird from 'geometries/Bird';
   import 'three/examples/js/renderers/Projector';
@@ -156,7 +155,7 @@
         var velSum = new THREE.Vector3(),
           count = 0;
 
-        for (const item of temps) {
+        for (var item of temps) {
           if (Math.random() > 0.6) continue;
           const distance = item.position.distanceTo(this.position);
           if (distance > 0 && distance <= neighborhoodRadius) {
@@ -181,7 +180,7 @@
           steer = new THREE.Vector3(),
           count = 0;
 
-        for (const item of temps) {
+        for (var item of temps) {
           if (Math.random() > 0.6) continue;
 
           distance = item.position.distanceTo(this.position);
@@ -208,7 +207,7 @@
           posSum = new THREE.Vector3(),
           repulse = new THREE.Vector3();
 
-        for (const item of temps) {
+        for (var item of temps) {
           if (Math.random() > 0.6) continue;
           distance = item.position.distanceTo(this.position);
           if (distance > 0 && distance <= neighborhoodRadius) {
@@ -230,7 +229,7 @@
       -event.clientY + screenHeightHalf,
       0);
 
-    for (const item of boids) {
+    for (var item of boids) {
       vector.z = item.position.z;
       item.repulse(vector);
     }

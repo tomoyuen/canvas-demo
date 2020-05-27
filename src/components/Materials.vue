@@ -45,7 +45,7 @@
     camera.position.z = Math.sin(timer) * 1000;
     camera.lookAt(scene.position);
 
-    for (const item of objects) {
+    for (var item of objects) {
       item.rotation.x += 0.01;
       item.rotation.y += 0.005;
     }
@@ -120,7 +120,7 @@
       }),
     ];
 
-    for (const item of geometry2.faces) {
+    for (var item of geometry2.faces) {
       if (Math.random() > 0.5) item.materialIndex = Math.floor(Math.random() * materials.length);
     }
     materials.push(materials);

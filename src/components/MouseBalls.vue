@@ -24,7 +24,6 @@
   /*
    * code from: http://codepen.io/renatorib/pen/gBLDA
    */
-  /* global window */
   export default {
     data() {
       return {

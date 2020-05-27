@@ -5,7 +5,6 @@
   /*
     * 来源：http://codepen.io/natewiley/pen/yakLgb
    */
-  /* global window document */
   /* eslint no-console: off */
   /* eslint no-var: off */
   /* eslint class-methods-use-this: off */

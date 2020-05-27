@@ -3,7 +3,6 @@
 </template>
 <script>
   /* eslint global-require: off */
-  /* eslint import/newline-after-import: off */
   var width = window.innerWidth,
     height = window.innerHeight;
 
